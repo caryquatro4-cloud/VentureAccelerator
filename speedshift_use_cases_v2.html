@@ -1,0 +1,1087 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Speedshift Ventures — Use Cases</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@300;400;500;600&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --ink:       #0d0d1a;
+    --ink-mid:   #3a3a52;
+    --ink-dim:   #7a7a99;
+    --rule:      #e4e4ee;
+    --page:      #f7f7fc;
+    --white:     #ffffff;
+
+    --c-safety:      #d93620;  --c-safety-bg:      #fff1ef;
+    --c-mobility:    #0057d9;  --c-mobility-bg:    #eef3ff;
+    --c-testing:     #007a52;  --c-testing-bg:     #edf7f3;
+    --c-dev:         #8a3d00;  --c-dev-bg:         #fff5eb;
+    --c-venture:     #5c14b8;  --c-venture-bg:     #f5eeff;
+    --c-digital:     #005f7a;  --c-digital-bg:     #eaf6fa;
+    --c-aviation:    #a3000f;  --c-aviation-bg:    #fff0f1;
+    --c-athletic:    #1a6b1a;  --c-athletic-bg:    #edfaed;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--page);
+    color: var(--ink);
+    min-height: 100vh;
+  }
+
+  /* ── MASTHEAD ── */
+  .masthead {
+    background: var(--ink);
+    padding: 52px 60px 44px;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .masthead::before {
+    content: '';
+    position: absolute;
+    left: -80px; bottom: -80px;
+    width: 340px; height: 340px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(245,216,0,0.07) 0%, transparent 70%);
+    pointer-events: none;
+  }
+
+  .masthead::after {
+    content: '';
+    position: absolute;
+    right: -60px; top: -60px;
+    width: 420px; height: 420px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(21,21,224,0.18) 0%, transparent 70%);
+    pointer-events: none;
+  }
+
+  .masthead-inner {
+    max-width: 1280px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 1fr auto;
+    align-items: end;
+    gap: 40px;
+    position: relative;
+    z-index: 1;
+  }
+
+  .brand {
+    display: flex;
+    align-items: baseline;
+    gap: 14px;
+    margin-bottom: 16px;
+  }
+
+  .brand-name {
+    font-family: 'DM Serif Display', serif;
+    font-size: 38px;
+    color: #fff;
+    letter-spacing: -0.5px;
+  }
+
+  .brand-name span { color: #f5d800; }
+
+  .brand-divider {
+    width: 1px; height: 28px;
+    background: rgba(255,255,255,0.2);
+  }
+
+  .brand-sub {
+    font-size: 12px;
+    font-weight: 500;
+    letter-spacing: 2.5px;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.4);
+  }
+
+  .masthead-title {
+    font-family: 'DM Serif Display', serif;
+    font-size: 58px;
+    color: #fff;
+    line-height: 1.05;
+    letter-spacing: -1.5px;
+  }
+
+  .masthead-title em {
+    font-style: italic;
+    color: #f5d800;
+  }
+
+  .masthead-desc {
+    margin-top: 14px;
+    font-size: 15px;
+    font-weight: 300;
+    color: rgba(255,255,255,0.5);
+    max-width: 580px;
+    line-height: 1.65;
+  }
+
+  .masthead-stat { text-align: right; }
+
+  .stat-num {
+    font-family: 'DM Serif Display', serif;
+    font-size: 80px;
+    color: rgba(255,255,255,0.07);
+    line-height: 1;
+    letter-spacing: -3px;
+  }
+
+  .stat-label {
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.28);
+    margin-top: -10px;
+  }
+
+  /* ── FILTER BAR ── */
+  .filter-bar {
+    background: var(--white);
+    border-bottom: 1px solid var(--rule);
+    padding: 0 60px;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.06);
+  }
+
+  .filter-inner {
+    max-width: 1280px;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    overflow-x: auto;
+    scrollbar-width: none;
+  }
+
+  .filter-inner::-webkit-scrollbar { display: none; }
+
+  .filter-btn {
+    border: none;
+    background: none;
+    cursor: pointer;
+    padding: 17px 18px;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 12px;
+    font-weight: 500;
+    color: var(--ink-dim);
+    letter-spacing: 0.3px;
+    white-space: nowrap;
+    position: relative;
+    transition: color 0.2s;
+    display: flex;
+    align-items: center;
+    gap: 7px;
+    flex-shrink: 0;
+  }
+
+  .filter-btn::after {
+    content: '';
+    position: absolute;
+    bottom: 0; left: 0; right: 0;
+    height: 2px;
+    background: transparent;
+    transition: background 0.2s;
+  }
+
+  .filter-btn.active { color: var(--ink); }
+  .filter-btn.active::after { background: var(--ink); }
+  .filter-btn:hover { color: var(--ink); }
+
+  .filter-dot {
+    width: 8px; height: 8px;
+    border-radius: 50%;
+    flex-shrink: 0;
+  }
+
+  .filter-count {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    background: var(--rule);
+    color: var(--ink-dim);
+    padding: 1px 6px;
+    border-radius: 20px;
+    transition: background 0.2s, color 0.2s;
+  }
+
+  .filter-btn.active .filter-count {
+    background: var(--ink);
+    color: #fff;
+  }
+
+  /* ── MAIN GRID ── */
+  .main {
+    max-width: 1280px;
+    margin: 0 auto;
+    padding: 48px 60px 80px;
+  }
+
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+  }
+
+  /* ── CARD ── */
+  .card {
+    background: var(--white);
+    border: 1px solid var(--rule);
+    border-radius: 4px;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    transition: transform 0.22s ease, box-shadow 0.22s ease;
+    animation: slideUp 0.5s ease backwards;
+  }
+
+  .card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 20px 48px rgba(0,0,0,0.1);
+  }
+
+  .card.hidden { display: none; }
+
+  .card-accent { height: 4px; width: 100%; }
+
+  .card-head {
+    padding: 22px 24px 16px;
+    display: flex;
+    align-items: flex-start;
+    gap: 14px;
+  }
+
+  .card-icon {
+    width: 40px; height: 40px;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 20px;
+    flex-shrink: 0;
+    margin-top: 2px;
+  }
+
+  .card-category {
+    font-size: 10px;
+    font-weight: 600;
+    letter-spacing: 2.5px;
+    text-transform: uppercase;
+    margin-bottom: 5px;
+  }
+
+  .card-title {
+    font-family: 'DM Serif Display', serif;
+    font-size: 20px;
+    line-height: 1.2;
+    color: var(--ink);
+    letter-spacing: -0.3px;
+  }
+
+  .card-body {
+    padding: 0 24px 20px;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+  }
+
+  .card-desc {
+    font-size: 13.5px;
+    font-weight: 300;
+    color: var(--ink-mid);
+    line-height: 1.65;
+  }
+
+  .card-section { display: flex; flex-direction: column; gap: 5px; }
+
+  .section-label {
+    font-size: 9.5px;
+    font-weight: 600;
+    letter-spacing: 2.5px;
+    text-transform: uppercase;
+    color: var(--ink-dim);
+  }
+
+  .section-value {
+    font-size: 12.5px;
+    color: var(--ink-mid);
+    line-height: 1.55;
+  }
+
+  .tag-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 5px;
+    margin-top: 2px;
+  }
+
+  .tag {
+    font-size: 11px;
+    font-weight: 500;
+    padding: 3px 9px;
+    border-radius: 20px;
+    background: var(--rule);
+    color: var(--ink-mid);
+    white-space: nowrap;
+  }
+
+  .advantage-box {
+    border-radius: 3px;
+    padding: 12px 14px;
+    font-size: 12.5px;
+    line-height: 1.6;
+    color: var(--ink-mid);
+    margin-top: auto;
+  }
+
+  .advantage-box strong {
+    font-weight: 600;
+    display: block;
+    font-size: 10px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    margin-bottom: 4px;
+  }
+
+  /* ── CATEGORY COLOR TOKENS ── */
+  .cat-safety   .card-accent { background: var(--c-safety); }
+  .cat-safety   .card-icon   { background: var(--c-safety-bg); }
+  .cat-safety   .card-category { color: var(--c-safety); }
+  .cat-safety   .advantage-box { background: var(--c-safety-bg); }
+  .cat-safety   .advantage-box strong { color: var(--c-safety); }
+  .cat-safety   .tag { background: var(--c-safety-bg); color: var(--c-safety); }
+
+  .cat-mobility .card-accent { background: var(--c-mobility); }
+  .cat-mobility .card-icon   { background: var(--c-mobility-bg); }
+  .cat-mobility .card-category { color: var(--c-mobility); }
+  .cat-mobility .advantage-box { background: var(--c-mobility-bg); }
+  .cat-mobility .advantage-box strong { color: var(--c-mobility); }
+  .cat-mobility .tag { background: var(--c-mobility-bg); color: var(--c-mobility); }
+
+  .cat-testing  .card-accent { background: var(--c-testing); }
+  .cat-testing  .card-icon   { background: var(--c-testing-bg); }
+  .cat-testing  .card-category { color: var(--c-testing); }
+  .cat-testing  .advantage-box { background: var(--c-testing-bg); }
+  .cat-testing  .advantage-box strong { color: var(--c-testing); }
+  .cat-testing  .tag { background: var(--c-testing-bg); color: var(--c-testing); }
+
+  .cat-dev      .card-accent { background: var(--c-dev); }
+  .cat-dev      .card-icon   { background: var(--c-dev-bg); }
+  .cat-dev      .card-category { color: var(--c-dev); }
+  .cat-dev      .advantage-box { background: var(--c-dev-bg); }
+  .cat-dev      .advantage-box strong { color: var(--c-dev); }
+  .cat-dev      .tag { background: var(--c-dev-bg); color: var(--c-dev); }
+
+  .cat-venture  .card-accent { background: var(--c-venture); }
+  .cat-venture  .card-icon   { background: var(--c-venture-bg); }
+  .cat-venture  .card-category { color: var(--c-venture); }
+  .cat-venture  .advantage-box { background: var(--c-venture-bg); }
+  .cat-venture  .advantage-box strong { color: var(--c-venture); }
+  .cat-venture  .tag { background: var(--c-venture-bg); color: var(--c-venture); }
+
+  .cat-digital  .card-accent { background: var(--c-digital); }
+  .cat-digital  .card-icon   { background: var(--c-digital-bg); }
+  .cat-digital  .card-category { color: var(--c-digital); }
+  .cat-digital  .advantage-box { background: var(--c-digital-bg); }
+  .cat-digital  .advantage-box strong { color: var(--c-digital); }
+  .cat-digital  .tag { background: var(--c-digital-bg); color: var(--c-digital); }
+
+  .cat-aviation .card-accent { background: var(--c-aviation); }
+  .cat-aviation .card-icon   { background: var(--c-aviation-bg); }
+  .cat-aviation .card-category { color: var(--c-aviation); }
+  .cat-aviation .advantage-box { background: var(--c-aviation-bg); }
+  .cat-aviation .advantage-box strong { color: var(--c-aviation); }
+  .cat-aviation .tag { background: var(--c-aviation-bg); color: var(--c-aviation); }
+
+  .cat-athletic .card-accent { background: var(--c-athletic); }
+  .cat-athletic .card-icon   { background: var(--c-athletic-bg); }
+  .cat-athletic .card-category { color: var(--c-athletic); }
+  .cat-athletic .advantage-box { background: var(--c-athletic-bg); }
+  .cat-athletic .advantage-box strong { color: var(--c-athletic); }
+  .cat-athletic .tag { background: var(--c-athletic-bg); color: var(--c-athletic); }
+
+  /* ── NEW BADGE ── */
+  .new-badge {
+    display: inline-block;
+    font-family: 'DM Mono', monospace;
+    font-size: 9px;
+    font-weight: 500;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    padding: 2px 7px;
+    border-radius: 3px;
+    background: #f5d800;
+    color: #0d0d1a;
+    margin-left: 8px;
+    vertical-align: middle;
+    position: relative;
+    top: -2px;
+  }
+
+  /* ── ANIMATION ── */
+  @keyframes slideUp {
+    from { opacity: 0; transform: translateY(18px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+
+  .card:nth-child(1)  { animation-delay: 0.04s; }
+  .card:nth-child(2)  { animation-delay: 0.08s; }
+  .card:nth-child(3)  { animation-delay: 0.12s; }
+  .card:nth-child(4)  { animation-delay: 0.16s; }
+  .card:nth-child(5)  { animation-delay: 0.20s; }
+  .card:nth-child(6)  { animation-delay: 0.24s; }
+  .card:nth-child(7)  { animation-delay: 0.28s; }
+  .card:nth-child(8)  { animation-delay: 0.32s; }
+  .card:nth-child(9)  { animation-delay: 0.36s; }
+  .card:nth-child(10) { animation-delay: 0.40s; }
+  .card:nth-child(11) { animation-delay: 0.44s; }
+  .card:nth-child(12) { animation-delay: 0.48s; }
+  .card:nth-child(13) { animation-delay: 0.52s; }
+  .card:nth-child(14) { animation-delay: 0.56s; }
+  .card:nth-child(15) { animation-delay: 0.60s; }
+  .card:nth-child(16) { animation-delay: 0.64s; }
+
+  /* ── PAGE FOOTER ── */
+  .page-footer {
+    background: var(--ink);
+    padding: 28px 60px;
+  }
+
+  .page-footer-inner {
+    max-width: 1280px;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .footer-left {
+    font-size: 12px;
+    color: rgba(255,255,255,0.3);
+    font-weight: 300;
+  }
+
+  .footer-right {
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    color: rgba(255,255,255,0.18);
+    letter-spacing: 2px;
+  }
+</style>
+</head>
+<body>
+
+<!-- MASTHEAD -->
+<div class="masthead">
+  <div class="masthead-inner">
+    <div>
+      <div class="brand">
+        <div class="brand-name">Speedshift <span>Ventures</span></div>
+        <div class="brand-divider"></div>
+        <div class="brand-sub">Venture Accelerator</div>
+      </div>
+      <div class="masthead-title">Use Case<br><em>Portfolio</em></div>
+      <div class="masthead-desc">A comprehensive view of the innovation domains, partner ecosystems, and competitive advantages across the Speedshift Accelerator platform.</div>
+    </div>
+    <div class="masthead-stat">
+      <div class="stat-num">16</div>
+      <div class="stat-label">Active Use Cases</div>
+    </div>
+  </div>
+</div>
+
+<!-- FILTER BAR -->
+<div class="filter-bar">
+  <div class="filter-inner">
+    <button class="filter-btn active" data-filter="all">
+      All <span class="filter-count">16</span>
+    </button>
+    <button class="filter-btn" data-filter="safety">
+      <span class="filter-dot" style="background:var(--c-safety)"></span>
+      Public Safety <span class="filter-count">3</span>
+    </button>
+    <button class="filter-btn" data-filter="mobility">
+      <span class="filter-dot" style="background:var(--c-mobility)"></span>
+      Mobility &amp; EV <span class="filter-count">3</span>
+    </button>
+    <button class="filter-btn" data-filter="testing">
+      <span class="filter-dot" style="background:var(--c-testing)"></span>
+      Testing <span class="filter-count">3</span>
+    </button>
+    <button class="filter-btn" data-filter="dev">
+      <span class="filter-dot" style="background:var(--c-dev)"></span>
+      Development <span class="filter-count">3</span>
+    </button>
+    <button class="filter-btn" data-filter="venture">
+      <span class="filter-dot" style="background:var(--c-venture)"></span>
+      Venture &amp; Strategy <span class="filter-count">1</span>
+    </button>
+    <button class="filter-btn" data-filter="digital">
+      <span class="filter-dot" style="background:var(--c-digital)"></span>
+      Digital Twin <span class="filter-count">1</span>
+    </button>
+    <button class="filter-btn" data-filter="aviation">
+      <span class="filter-dot" style="background:var(--c-aviation)"></span>
+      Aviation <span class="filter-count">1</span>
+    </button>
+    <button class="filter-btn" data-filter="athletic">
+      <span class="filter-dot" style="background:var(--c-athletic)"></span>
+      Athletic &amp; Training <span class="filter-count">1</span>
+    </button>
+  </div>
+</div>
+
+<!-- GRID -->
+<div class="main">
+  <div class="grid" id="grid">
+
+    <!-- 1. Accident Triage -->
+    <div class="card cat-safety" data-cat="safety">
+      <div class="card-accent"></div>
+      <div class="card-head">
+        <div class="card-icon">🚑</div>
+        <div class="card-title-area">
+          <div class="card-category">Public Safety</div>
+          <div class="card-title">Accident Triage</div>
+        </div>
+      </div>
+      <div class="card-body">
+        <div class="card-desc">Combines vehicle accident data with ER and medical records to coordinate response from first responders through to hospital — reducing accident fatalities.</div>
+        <div class="card-section">
+          <div class="section-label">Target Customers</div>
+          <div class="tag-row">
+            <span class="tag">Hospitals</span>
+            <span class="tag">Car Manufacturers</span>
+            <span class="tag">Insurance</span>
+            <span class="tag">Safety Depts</span>
+          </div>
+        </div>
+        <div class="card-section">
+          <div class="section-label">Key Partners</div>
+          <div class="section-value">Conekt.ai · Hexagon · McGraw Catalpa · Qu4tro Labs · Road Medic · Lidar Saving Lives · NHTSA · CAR · SOAR Intelligent Solutions · VESS</div>
+        </div>
+        <div class="advantage-box">
+          <strong>Competitive Edge</strong>
+          Non-OEM-centric model — original model designers now within Speedshift consortium, with direct access to health data (HIPAA) previously unavailable to automaker-led efforts.
+        </div>
+      </div>
+    </div>
+
+    <!-- 2. Active Shooter Security -->
+    <div class="card cat-safety" data-cat="safety">
+      <div class="card-accent"></div>
+      <div class="card-head">
+        <div class="card-icon">🛡️</div>
+        <div class="card-title-area">
+          <div class="card-category">Public Safety</div>
+          <div class="card-title">Active Shooter Security</div>
+        </div>
+      </div>
+      <div class="card-body">
+        <div class="card-desc">AI sensors identify and track active shooters before shots are fired — coordinating emergency personnel response with live shooter movement tracking.</div>
+        <div class="card-section">
+          <div class="section-label">Target Customers</div>
+          <div class="tag-row">
+            <span class="tag">Schools</span>
+            <span class="tag">Airports</span>
+            <span class="tag">Casinos</span>
+            <span class="tag">Banks</span>
+            <span class="tag">Sports Venues</span>
+            <span class="tag">Medical Centers</span>
+          </div>
+        </div>
+        <div class="card-section">
+          <div class="section-label">Key Partners</div>
+          <div class="section-value">Gunsens · Endeavour Technology · Hexagon · Unity Technologies · Conekt.ai</div>
+        </div>
+        <div class="advantage-box">
+          <strong>Competitive Edge</strong>
+          GunSens detects a partial view of a weapon + physical behavior — identifies threats before firing. Tracks movement post-detection. Amazon Warehouses already signed.
+        </div>
+      </div>
+    </div>
+
+    <!-- 3. First Responder Safety -->
+    <div class="card cat-safety" data-cat="safety">
+      <div class="card-accent"></div>
+      <div class="card-head">
+        <div class="card-icon">🔥</div>
+        <div class="card-title-area">
+          <div class="card-category">Public Safety</div>
+          <div class="card-title">First Responder Safety</div>
+        </div>
+      </div>
+      <div class="card-body">
+        <div class="card-desc">Geolocation of first responders in zero-power scenarios — ensuring safe extraction during building fires or natural disasters and signaling control centers in real time.</div>
+        <div class="card-section">
+          <div class="section-label">Target Customers</div>
+          <div class="tag-row">
+            <span class="tag">Insurance Companies</span>
+            <span class="tag">Fire Depts</span>
+            <span class="tag">Police Safety</span>
+            <span class="tag">Military</span>
+          </div>
+        </div>
+        <div class="card-section">
+          <div class="section-label">Key Partners</div>
+          <div class="section-value">Qu4tro Labs · Gunsens · Hexagon · NHTSA · Conekt.ai · Endeavour Technology · Unity Technologies</div>
+        </div>
+        <div class="advantage-box">
+          <strong>Competitive Edge</strong>
+          Multiple patents tracking first responders in city scenarios without building power — transmitting signals to control centers to manage and reduce dangerous situations in real time.
+        </div>
+      </div>
+    </div>
+
+    <!-- 4. Fleet Management -->
+    <div class="card cat-mobility" data-cat="mobility">
+      <div class="card-accent"></div>
+      <div class="card-head">
+        <div class="card-icon">🚚</div>
+        <div class="card-title-area">
+          <div class="card-category">Mobility &amp; EV</div>
+          <div class="card-title">Fleet Management</div>
+        </div>
+      </div>
+      <div class="card-body">
+        <div class="card-desc">Location, health, and condition monitoring across vehicle fleets — enabling predictive maintenance, operational uptime optimization, and higher residual values.</div>
+        <div class="card-section">
+          <div class="section-label">Target Customers</div>
+          <div class="tag-row">
+            <span class="tag">Corporate Fleets</span>
+            <span class="tag">OTR Trucking</span>
+            <span class="tag">First Responders</span>
+            <span class="tag">Insurance</span>
+          </div>
+        </div>
+        <div class="card-section">
+          <div class="section-label">Key Partners</div>
+          <div class="section-value">SOAR Intelligent Solutions · VESS · CAR · Conekt.ai · Speedshift</div>
+        </div>
+        <div class="advantage-box">
+          <strong>Competitive Edge</strong>
+          Conekt.ai manages the entire Amazon fleet — combined access to 7M+ vehicles via direct OEM cloud connectivity with no additional hardware required.
+        </div>
+      </div>
+    </div>
+
+    <!-- 5. Electrification -->
+    <div class="card cat-mobility" data-cat="mobility">
+      <div class="card-accent"></div>
+      <div class="card-head">
+        <div class="card-icon">⚡</div>
+        <div class="card-title-area">
+          <div class="card-category">Mobility &amp; EV</div>
+          <div class="card-title">Electrification</div>
+        </div>
+      </div>
+      <div class="card-body">
+        <div class="card-desc">EV charging strategy, station testing and management, battery life research, utility electrification planning, and EV accident response for materials management.</div>
+        <div class="card-section">
+          <div class="section-label">Target Customers</div>
+          <div class="tag-row">
+            <span class="tag">Drones</span>
+            <span class="tag">Automakers</span>
+            <span class="tag">Battery Manufacturers</span>
+            <span class="tag">Utilities</span>
+            <span class="tag">First Responders</span>
+          </div>
+        </div>
+        <div class="card-section">
+          <div class="section-label">Key Partners</div>
+          <div class="section-value">Speedshift · SOAR Intelligent Solutions · VESS · HiLab · AWS Prototyping Lab · CAR · NHTSA · Road Medic</div>
+        </div>
+        <div class="advantage-box">
+          <strong>Competitive Edge</strong>
+          Digital twin enables grid mapping and smart city planning for charger stations and utility resources — protecting against brownouts, blackouts, and environmental disruptions.
+        </div>
+      </div>
+    </div>
+
+    <!-- 6. e-Mobility -->
+    <div class="card cat-mobility" data-cat="mobility">
+      <div class="card-accent"></div>
+      <div class="card-head">
+        <div class="card-icon">🛵</div>
+        <div class="card-title-area">
+          <div class="card-category">Mobility &amp; EV</div>
+          <div class="card-title">e-Mobility</div>
+        </div>
+      </div>
+      <div class="card-body">
+        <div class="card-desc">Next-generation mobility beyond commercial vehicles — electrified two/three-wheelers and advanced mobility solutions for individuals with physical disabilities.</div>
+        <div class="card-section">
+          <div class="section-label">Target Customers</div>
+          <div class="tag-row">
+            <span class="tag">Universities</span>
+            <span class="tag">Municipalities</span>
+            <span class="tag">Disabled Individuals</span>
+            <span class="tag">Vehicle Mfrs</span>
+            <span class="tag">Drones</span>
+          </div>
+        </div>
+        <div class="card-section">
+          <div class="section-label">Key Partners</div>
+          <div class="section-value">Trip Bikes · SOAR Intelligent Solutions · VESS · CAR · Speedshift · AWS Prototyping Lab · Emergence Field Labs · Pando Strategies</div>
+        </div>
+        <div class="advantage-box">
+          <strong>Competitive Edge</strong>
+          Fleet customer data provides a large benchmark for EV service planning. TRIP's on-demand eMobility device with hot-swappable battery technology could reshape industry standards.
+        </div>
+      </div>
+    </div>
+
+    <!-- 7. Testing as a Service -->
+    <div class="card cat-testing" data-cat="testing">
+      <div class="card-accent"></div>
+      <div class="card-head">
+        <div class="card-icon">🧪</div>
+        <div class="card-title-area">
+          <div class="card-category">Testing</div>
+          <div class="card-title">Testing as a Service</div>
+        </div>
+      </div>
+      <div class="card-body">
+        <div class="card-desc">Companies access centralized testing facilities without capital expenditure — covering hardware, software, integration testing, and scenario simulation via remote access.</div>
+        <div class="card-section">
+          <div class="section-label">Target Customers</div>
+          <div class="tag-row">
+            <span class="tag">HW/SW Manufacturers</span>
+            <span class="tag">Start-ups</span>
+            <span class="tag">Mature Companies</span>
+          </div>
+        </div>
+        <div class="card-section">
+          <div class="section-label">Key Partners</div>
+          <div class="section-value">HiLab · AWS Prototyping Lab · CAR · Adapta Robotics · Qu4tro Labs</div>
+        </div>
+        <div class="advantage-box">
+          <strong>Competitive Edge</strong>
+          Equipment centralized at HiLab with remote and automated access. Skilled test managers on staff. Shared cost model makes enterprise-grade testing accessible to start-ups for the first time.
+        </div>
+      </div>
+    </div>
+
+    <!-- 8. Mobile Device & Interface Testing -->
+    <div class="card cat-testing" data-cat="testing">
+      <div class="card-accent"></div>
+      <div class="card-head">
+        <div class="card-icon">📱</div>
+        <div class="card-title-area">
+          <div class="card-category">Testing</div>
+          <div class="card-title">Mobile Device &amp; Interface Testing</div>
+        </div>
+      </div>
+      <div class="card-body">
+        <div class="card-desc">AI-driven robotic testing of any touchscreen — phones, tablets, smartwatches, vehicle infotainment, and airplane cockpits — simulating actual human touch interactions.</div>
+        <div class="card-section">
+          <div class="section-label">Target Customers</div>
+          <div class="tag-row">
+            <span class="tag">HW/SW Manufacturers</span>
+            <span class="tag">Start-ups</span>
+            <span class="tag">Mature Companies</span>
+          </div>
+        </div>
+        <div class="card-section">
+          <div class="section-label">Key Partners</div>
+          <div class="section-value">AWS Prototyping Lab · Unity Technologies · Adapta Robotics</div>
+        </div>
+        <div class="advantage-box">
+          <strong>Competitive Edge</strong>
+          Adapta's Generative AI robots validated from Smart Watches to Airplane Cockpits without screen damage. Combined with Unity's UX expertise for a complete test + design solution stack.
+        </div>
+      </div>
+    </div>
+
+    <!-- 9. Silicon in the Loop -->
+    <div class="card cat-testing" data-cat="testing">
+      <div class="card-accent"></div>
+      <div class="card-head">
+        <div class="card-icon">💾</div>
+        <div class="card-title-area">
+          <div class="card-category">Testing</div>
+          <div class="card-title">Silicon in the Loop</div>
+        </div>
+      </div>
+      <div class="card-body">
+        <div class="card-desc">Test pre-production silicon chips with actual software and BIOS before manufacturing — dramatically reducing post-production failure rates and costly recalls.</div>
+        <div class="card-section">
+          <div class="section-label">Target Customers</div>
+          <div class="tag-row">
+            <span class="tag">HW/SW Manufacturers</span>
+            <span class="tag">Start-ups</span>
+            <span class="tag">Chip Designers</span>
+          </div>
+        </div>
+        <div class="card-section">
+          <div class="section-label">Key Partners</div>
+          <div class="section-value">AWS · AWS Prototyping Lab · Speedshift · Synopsis · HiLab</div>
+        </div>
+        <div class="advantage-box">
+          <strong>Competitive Edge</strong>
+          Remote access silicon testing via the hub/spoke model. Access to Quantum Computing chips through partner Entanglement — a capability that market incumbents like Synopsys cannot offer.
+        </div>
+      </div>
+    </div>
+
+    <!-- 10. Development as a Service -->
+    <div class="card cat-dev" data-cat="dev">
+      <div class="card-accent"></div>
+      <div class="card-head">
+        <div class="card-icon">🛠️</div>
+        <div class="card-title-area">
+          <div class="card-category">Development</div>
+          <div class="card-title">Development as a Service</div>
+        </div>
+      </div>
+      <div class="card-body">
+        <div class="card-desc">Hub development teams and shared facilities allow companies to build new software or integrate products — without capital investment in equipment or permanent staffing.</div>
+        <div class="card-section">
+          <div class="section-label">Target Customers</div>
+          <div class="tag-row">
+            <span class="tag">HW/SW Manufacturers</span>
+            <span class="tag">Start-ups</span>
+            <span class="tag">Enterprise</span>
+          </div>
+        </div>
+        <div class="card-section">
+          <div class="section-label">Key Partners</div>
+          <div class="section-value">Speedshift · Emergence Field Labs · Abalta · CapGemini · AWS · Unity Technologies · CAR · AWS Prototyping Lab</div>
+        </div>
+        <div class="advantage-box">
+          <strong>Competitive Edge</strong>
+          Pay-as-needed vs. large consultancy project overhead. Shared headcount keeps costs low. University training pipeline continuously builds developer expertise across multiple platforms.
+        </div>
+      </div>
+    </div>
+
+    <!-- 11. Mobile App & Infotainment -->
+    <div class="card cat-dev" data-cat="dev">
+      <div class="card-accent"></div>
+      <div class="card-head">
+        <div class="card-icon">🖥️</div>
+        <div class="card-title-area">
+          <div class="card-category">Development</div>
+          <div class="card-title">Mobile App &amp; Infotainment</div>
+        </div>
+      </div>
+      <div class="card-body">
+        <div class="card-desc">Creation and deployment of Android and Android Automotive OS to vehicles, plus co-development of mobile applications for organizations and associated hardware.</div>
+        <div class="card-section">
+          <div class="section-label">Target Customers</div>
+          <div class="tag-row">
+            <span class="tag">Automakers</span>
+            <span class="tag">Device Providers</span>
+            <span class="tag">Start-ups</span>
+          </div>
+        </div>
+        <div class="card-section">
+          <div class="section-label">Key Partners</div>
+          <div class="section-value">AWS Prototyping Lab · Unity Technologies · Adapta Robotics · Speedshift · P3</div>
+        </div>
+        <div class="advantage-box">
+          <strong>Competitive Edge</strong>
+          Unity already provides infotainment design for Mercedes. Strategy focuses on superior UI layers on top of existing OS platforms — not challenging QNX or Android Automotive head-on.
+        </div>
+      </div>
+    </div>
+
+    <!-- 12. Strategic Consulting / GTM -->
+    <div class="card cat-dev" data-cat="dev">
+      <div class="card-accent"></div>
+      <div class="card-head">
+        <div class="card-icon">📊</div>
+        <div class="card-title-area">
+          <div class="card-category">Development</div>
+          <div class="card-title">Strategic Consulting &amp; GTM</div>
+        </div>
+      </div>
+      <div class="card-body">
+        <div class="card-desc">Companies leverage hub services for go-to-market strategy, marketing assistance, and commercialization planning — across individual products and partner integrations.</div>
+        <div class="card-section">
+          <div class="section-label">Target Customers</div>
+          <div class="tag-row">
+            <span class="tag">HW/SW Manufacturers</span>
+            <span class="tag">Start-ups</span>
+            <span class="tag">Mature Companies</span>
+          </div>
+        </div>
+        <div class="card-section">
+          <div class="section-label">Key Partners</div>
+          <div class="section-value">Speedshift · Volvo-CampX · Central State University · Shawnee State University · University of Akron</div>
+        </div>
+        <div class="advantage-box">
+          <strong>Competitive Edge</strong>
+          Multi-solution commercialization models factoring integration across Speedshift partners — creating more comprehensive and effective GTM plans than single-product agency approaches.
+        </div>
+      </div>
+    </div>
+
+    <!-- 13. Venture Capital / Incubator -->
+    <div class="card cat-venture" data-cat="venture">
+      <div class="card-accent"></div>
+      <div class="card-head">
+        <div class="card-icon">💼</div>
+        <div class="card-title-area">
+          <div class="card-category">Venture &amp; Strategy</div>
+          <div class="card-title">Venture Capital &amp; Incubator</div>
+        </div>
+      </div>
+      <div class="card-body">
+        <div class="card-desc">Portfolio and local companies are matched with VC groups while the hub functions as an incubator — reducing pre-funding overhead through shared resources and infrastructure.</div>
+        <div class="card-section">
+          <div class="section-label">Target Customers</div>
+          <div class="tag-row">
+            <span class="tag">HW/SW Manufacturers</span>
+            <span class="tag">Start-ups</span>
+            <span class="tag">Mature Companies</span>
+          </div>
+        </div>
+        <div class="card-section">
+          <div class="section-label">Key Partners</div>
+          <div class="section-value">Speedshift · AWS Santa Clara Prototyping &amp; Innovation Lab</div>
+        </div>
+        <div class="advantage-box">
+          <strong>Competitive Edge</strong>
+          Shared resource model dramatically reduces pre-funding overhead — companies spend more time building than fundraising. Cross-portfolio integrations create stronger, more fundable products.
+        </div>
+      </div>
+    </div>
+
+    <!-- 14. Digital Twins -->
+    <div class="card cat-digital" data-cat="digital">
+      <div class="card-accent"></div>
+      <div class="card-head">
+        <div class="card-icon">🌐</div>
+        <div class="card-title-area">
+          <div class="card-category">Digital Twin</div>
+          <div class="card-title">Digital Twins</div>
+        </div>
+      </div>
+      <div class="card-body">
+        <div class="card-desc">Digital representation of buildings, vehicles, and structures for virtual testing, scenario modeling, 3D engineering, smart city planning, and real-world operational simulation.</div>
+        <div class="card-section">
+          <div class="section-label">Target Customers</div>
+          <div class="tag-row">
+            <span class="tag">Schools</span>
+            <span class="tag">Medical Centers</span>
+            <span class="tag">Airports</span>
+            <span class="tag">Warehouses</span>
+            <span class="tag">Stadiums</span>
+            <span class="tag">Dept. of War</span>
+          </div>
+        </div>
+        <div class="card-section">
+          <div class="section-label">Key Partners</div>
+          <div class="section-value">Unity Technologies · AWS Santa Clara Lab · VESS · Speedshift · Studio 13</div>
+        </div>
+        <div class="advantage-box">
+          <strong>Competitive Edge</strong>
+          Speedshift's platform delivers the highest fidelity real-time 3D simulation — providing more accurate results for operations management, testing, and validation of real-world scenarios than CAD-based alternatives.
+        </div>
+      </div>
+    </div>
+
+    <!-- 15. Aviation — NEW -->
+    <div class="card cat-aviation" data-cat="aviation">
+      <div class="card-accent"></div>
+      <div class="card-head">
+        <div class="card-icon">✈️</div>
+        <div class="card-title-area">
+          <div class="card-category">Aviation <span class="new-badge">New</span></div>
+          <div class="card-title">Aviation &amp; Drone Development</div>
+        </div>
+      </div>
+      <div class="card-body">
+        <div class="card-desc">Drone and aviation technology development — testing, certification, and advancement of drones and associated aviation equipment using Speedshift's integrated service infrastructure.</div>
+        <div class="card-section">
+          <div class="section-label">Target Customers</div>
+          <div class="tag-row">
+            <span class="tag">Military</span>
+            <span class="tag">Drone Manufacturers</span>
+            <span class="tag">OEMs</span>
+            <span class="tag">Avionics</span>
+            <span class="tag">Engine &amp; Control Systems</span>
+          </div>
+        </div>
+        <div class="card-section">
+          <div class="section-label">Key Partners</div>
+          <div class="section-value">SOAR Intelligent Solutions · VESS · HiLab</div>
+        </div>
+        <div class="advantage-box">
+          <strong>Competitive Edge</strong>
+          Speedshift provides a common methodology and streamlined practice for drone and aviation product development — combining new technologies into a single integrated platform where competitors rely on disparate systems.
+        </div>
+      </div>
+    </div>
+
+    <!-- 16. Athletic & Physical Training — NEW -->
+    <div class="card cat-athletic" data-cat="athletic">
+      <div class="card-accent"></div>
+      <div class="card-head">
+        <div class="card-icon">🏆</div>
+        <div class="card-title-area">
+          <div class="card-category">Athletic &amp; Training <span class="new-badge">New</span></div>
+          <div class="card-title">Athletic &amp; Physical Training</div>
+        </div>
+      </div>
+      <div class="card-body">
+        <div class="card-desc">End-to-end athletic engine supporting training, development, and recruiting across physical and cognitive dimensions — from youth programs through professional placement.</div>
+        <div class="card-section">
+          <div class="section-label">Target Customers</div>
+          <div class="tag-row">
+            <span class="tag">Military</span>
+            <span class="tag">Law Enforcement</span>
+            <span class="tag">Sports Teams</span>
+            <span class="tag">Training Facilities</span>
+            <span class="tag">Medical Centers</span>
+            <span class="tag">Device Manufacturers</span>
+          </div>
+        </div>
+        <div class="card-section">
+          <div class="section-label">Key Partners</div>
+          <div class="section-value">Speedshift · S2 Cognition · ScoutUS · Pivotal Sports · Connected Performance</div>
+        </div>
+        <div class="advantage-box">
+          <strong>Competitive Edge</strong>
+          Full-service athletic ecosystem: professional coaching, a full ERP for training progress and injury prevention, cognitive assessments integrated into training regimens, and a scouting/recruiting portal — all in one platform.
+        </div>
+      </div>
+    </div>
+
+  </div><!-- /grid -->
+</div><!-- /main -->
+
+<div class="page-footer">
+  <div class="page-footer-inner">
+    <div class="footer-left">Speedshift Ventures · Speedshift Accelerator · Confidential · March 2026</div>
+    <div class="footer-right">16 USE CASES · 8 DOMAINS</div>
+  </div>
+</div>
+
+<script>
+  const btns  = document.querySelectorAll('.filter-btn');
+  const cards = document.querySelectorAll('.card');
+
+  btns.forEach(btn => {
+    btn.addEventListener('click', () => {
+      btns.forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      const filter = btn.dataset.filter;
+      cards.forEach(card => {
+        const show = filter === 'all' || card.dataset.cat === filter;
+        card.classList.toggle('hidden', !show);
+      });
+    });
+  });
+</script>
+</body>
+</html>

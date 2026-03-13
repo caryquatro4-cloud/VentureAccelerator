@@ -1,0 +1,986 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Speedshift Ventures — Revenue Model</title>
+<link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@400;500;600;700&family=Barlow:ital,wght@0,300;0,400;0,500;0,600;1,300&family=Barlow+Condensed:wght@500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --blue: #1515e0;
+    --blue-bright: #2626ff;
+    --blue-dark: #0a0a80;
+    --yellow: #f5d800;
+    --yellow-pale: #fffacc;
+    --green: #0f7a1a;
+    --green-light: #e3f5e5;
+    --orange: #c04800;
+    --orange-light: #fff2e8;
+    --purple: #5a0f8c;
+    --purple-light: #f3eaff;
+    --midblue: #2c2ccc;
+    --midblue-light: #e8e8ff;
+    --bg: #04041a;
+    --surface: #0a0a2e;
+    --surface2: #111138;
+    --text: #f0f0ff;
+    --text-dim: #9999cc;
+    --border: rgba(100,100,255,0.2);
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'Barlow', sans-serif;
+    min-height: 100vh;
+    overflow-x: hidden;
+  }
+
+  /* ── Background grid ── */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image:
+      linear-gradient(rgba(21,21,224,0.05) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(21,21,224,0.05) 1px, transparent 1px);
+    background-size: 60px 60px;
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  .page {
+    position: relative;
+    z-index: 1;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 48px 40px 60px;
+  }
+
+  /* ── HEADER ── */
+  .header {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    align-items: start;
+    gap: 40px;
+    margin-bottom: 52px;
+    padding-bottom: 36px;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .logo-area { display: flex; flex-direction: column; gap: 6px; }
+
+  .logo-label {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 4px;
+    color: var(--yellow);
+    text-transform: uppercase;
+    opacity: 0.85;
+  }
+
+  .logo-name {
+    font-family: 'Rajdhani', sans-serif;
+    font-size: 52px;
+    font-weight: 700;
+    color: #fff;
+    line-height: 1;
+    letter-spacing: -1px;
+  }
+
+  .logo-name span { color: var(--yellow); }
+
+  .logo-sub {
+    font-size: 14px;
+    font-weight: 300;
+    color: var(--text-dim);
+    letter-spacing: 1px;
+    margin-top: 4px;
+  }
+
+  .header-right { text-align: right; }
+
+  .doc-title {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 4px;
+    color: var(--blue-bright);
+    text-transform: uppercase;
+    margin-bottom: 8px;
+    opacity: 0.8;
+  }
+
+  .headline {
+    font-family: 'Rajdhani', sans-serif;
+    font-size: 30px;
+    font-weight: 700;
+    color: #fff;
+    line-height: 1.1;
+  }
+
+  .headline em {
+    font-style: normal;
+    color: var(--yellow);
+  }
+
+  .tagline {
+    font-size: 13px;
+    color: var(--text-dim);
+    margin-top: 8px;
+    font-weight: 300;
+    max-width: 320px;
+    line-height: 1.5;
+    text-align: right;
+  }
+
+  /* ── THESIS BANNER ── */
+  .thesis {
+    background: linear-gradient(135deg, var(--surface2) 0%, rgba(21,21,224,0.15) 100%);
+    border: 1px solid rgba(245,216,0,0.25);
+    border-left: 4px solid var(--yellow);
+    padding: 20px 28px;
+    margin-bottom: 48px;
+    border-radius: 2px;
+  }
+
+  .thesis-label {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 10px;
+    font-weight: 600;
+    letter-spacing: 3px;
+    color: var(--yellow);
+    text-transform: uppercase;
+    margin-bottom: 8px;
+    opacity: 0.7;
+  }
+
+  .thesis p {
+    font-size: 15px;
+    font-weight: 300;
+    color: var(--text);
+    line-height: 1.6;
+    max-width: 880px;
+  }
+
+  .thesis p strong { color: var(--yellow); font-weight: 600; }
+
+  /* ── SECTION TITLE ── */
+  .section-title {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 10px;
+    font-weight: 600;
+    letter-spacing: 4px;
+    color: var(--blue-bright);
+    text-transform: uppercase;
+    opacity: 0.7;
+    margin-bottom: 20px;
+  }
+
+  /* ── FOUR STREAMS ── */
+  .streams-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 16px;
+    margin-bottom: 48px;
+  }
+
+  .stream-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-top: 3px solid;
+    padding: 0;
+    border-radius: 2px;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    animation: fadeUp 0.6s ease backwards;
+  }
+
+  .stream-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 16px 48px rgba(0,0,0,0.5);
+  }
+
+  .stream-card:nth-child(1) { border-top-color: var(--blue-bright); animation-delay: 0.1s; }
+  .stream-card:nth-child(2) { border-top-color: var(--orange); animation-delay: 0.2s; }
+  .stream-card:nth-child(3) { border-top-color: var(--purple); animation-delay: 0.3s; }
+  .stream-card:nth-child(4) { border-top-color: var(--midblue); animation-delay: 0.4s; }
+
+  .stream-header {
+    padding: 18px 20px 14px;
+    display: flex;
+    align-items: flex-start;
+    gap: 14px;
+  }
+
+  .stream-number {
+    font-family: 'Rajdhani', sans-serif;
+    font-size: 42px;
+    font-weight: 700;
+    line-height: 1;
+    opacity: 0.15;
+    min-width: 40px;
+  }
+
+  .stream-card:nth-child(1) .stream-number { color: var(--blue-bright); }
+  .stream-card:nth-child(2) .stream-number { color: var(--orange); }
+  .stream-card:nth-child(3) .stream-number { color: var(--purple); }
+  .stream-card:nth-child(4) .stream-number { color: var(--midblue); }
+
+  .stream-title-area {}
+
+  .stream-label {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 9px;
+    font-weight: 600;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    margin-bottom: 4px;
+    opacity: 0.7;
+  }
+
+  .stream-card:nth-child(1) .stream-label { color: var(--blue-bright); }
+  .stream-card:nth-child(2) .stream-label { color: var(--orange); }
+  .stream-card:nth-child(3) .stream-label { color: var(--purple); }
+  .stream-card:nth-child(4) .stream-label { color: #8888ff; }
+
+  .stream-title {
+    font-family: 'Rajdhani', sans-serif;
+    font-size: 17px;
+    font-weight: 700;
+    color: #fff;
+    line-height: 1.2;
+  }
+
+  .stream-divider {
+    height: 1px;
+    background: var(--border);
+    margin: 0 20px;
+  }
+
+  .stream-body {
+    padding: 14px 20px 18px;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .stream-desc {
+    font-size: 12.5px;
+    font-weight: 300;
+    color: var(--text-dim);
+    line-height: 1.55;
+  }
+
+  .stream-items {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    flex: 1;
+  }
+
+  .stream-item {
+    display: flex;
+    gap: 8px;
+    align-items: flex-start;
+  }
+
+  .item-dot {
+    width: 5px;
+    height: 5px;
+    border-radius: 50%;
+    margin-top: 5px;
+    flex-shrink: 0;
+  }
+
+  .stream-card:nth-child(1) .item-dot { background: var(--blue-bright); }
+  .stream-card:nth-child(2) .item-dot { background: var(--orange); }
+  .stream-card:nth-child(3) .item-dot { background: #9933cc; }
+  .stream-card:nth-child(4) .item-dot { background: #5555dd; }
+
+  .item-text {
+    font-size: 12px;
+    color: var(--text);
+    line-height: 1.5;
+    font-weight: 300;
+  }
+
+  .item-text strong {
+    font-weight: 600;
+    color: #fff;
+  }
+
+  .stream-metric {
+    margin-top: 12px;
+    padding: 10px 14px;
+    background: rgba(255,255,255,0.04);
+    border-radius: 2px;
+    border-left: 2px solid;
+  }
+
+  .stream-card:nth-child(1) .stream-metric { border-color: var(--blue-bright); }
+  .stream-card:nth-child(2) .stream-metric { border-color: var(--orange); }
+  .stream-card:nth-child(3) .stream-metric { border-color: #9933cc; }
+  .stream-card:nth-child(4) .stream-metric { border-color: #5555dd; }
+
+  .metric-label {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 9px;
+    letter-spacing: 2px;
+    color: var(--text-dim);
+    text-transform: uppercase;
+    margin-bottom: 3px;
+  }
+
+  .metric-value {
+    font-family: 'Rajdhani', sans-serif;
+    font-size: 16px;
+    font-weight: 700;
+    color: #fff;
+  }
+
+  /* ── DISCOUNT CALLOUT ── */
+  .discount-banner {
+    background: linear-gradient(135deg, rgba(15,122,26,0.12) 0%, rgba(21,21,224,0.08) 100%);
+    border: 1px solid rgba(15,122,26,0.3);
+    border-radius: 2px;
+    padding: 24px 28px;
+    margin-bottom: 48px;
+    animation: fadeUp 0.6s 0.5s ease backwards;
+  }
+
+  .discount-title {
+    font-family: 'Rajdhani', sans-serif;
+    font-size: 18px;
+    font-weight: 700;
+    color: #4ecb5a;
+    margin-bottom: 4px;
+  }
+
+  .discount-sub {
+    font-size: 12px;
+    color: var(--text-dim);
+    margin-bottom: 18px;
+    font-weight: 300;
+  }
+
+  .discount-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 12px;
+  }
+
+  .discount-item {
+    background: rgba(0,0,0,0.3);
+    border: 1px solid rgba(15,122,26,0.2);
+    padding: 14px 16px;
+    border-radius: 2px;
+  }
+
+  .discount-role {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 2px;
+    color: #4ecb5a;
+    text-transform: uppercase;
+    margin-bottom: 6px;
+  }
+
+  .discount-pct {
+    font-family: 'Rajdhani', sans-serif;
+    font-size: 32px;
+    font-weight: 700;
+    color: #fff;
+    line-height: 1;
+    margin-bottom: 4px;
+  }
+
+  .discount-pct span {
+    font-size: 14px;
+    font-weight: 400;
+    color: var(--text-dim);
+  }
+
+  .discount-note {
+    font-size: 11.5px;
+    color: var(--text-dim);
+    font-weight: 300;
+    line-height: 1.4;
+  }
+
+  /* ── PRO FORMA TABLE ── */
+  .proforma-section {
+    margin-bottom: 48px;
+    animation: fadeUp 0.6s 0.6s ease backwards;
+  }
+
+  .proforma-title {
+    font-family: 'Rajdhani', sans-serif;
+    font-size: 20px;
+    font-weight: 700;
+    color: #fff;
+    margin-bottom: 4px;
+  }
+
+  .proforma-sub {
+    font-size: 12px;
+    color: var(--text-dim);
+    margin-bottom: 20px;
+    font-weight: 300;
+  }
+
+  .proforma-table {
+    width: 100%;
+    border-collapse: collapse;
+  }
+
+  .proforma-table th {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 10px;
+    font-weight: 600;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    padding: 12px 16px;
+    text-align: left;
+    background: var(--surface2);
+    border-bottom: 1px solid var(--border);
+    color: var(--blue-bright);
+    opacity: 0.85;
+  }
+
+  .proforma-table th:not(:first-child) { text-align: center; }
+
+  .proforma-table td {
+    padding: 10px 16px;
+    font-size: 13px;
+    border-bottom: 1px solid rgba(255,255,255,0.04);
+    font-weight: 300;
+  }
+
+  .proforma-table td:not(:first-child) {
+    text-align: center;
+    font-family: 'Rajdhani', sans-serif;
+    font-size: 15px;
+    font-weight: 600;
+    color: #ddd;
+  }
+
+  .proforma-table tr:hover td { background: rgba(255,255,255,0.02); }
+
+  .stream-tag {
+    display: inline-block;
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    margin-right: 8px;
+    vertical-align: middle;
+    flex-shrink: 0;
+  }
+
+  .s1 { background: var(--blue-bright); }
+  .s2 { background: var(--orange); }
+  .s3 { background: #9933cc; }
+  .s4 { background: #5555dd; }
+
+  .row-s1 td:first-child { border-left: 2px solid var(--blue-bright); }
+  .row-s2 td:first-child { border-left: 2px solid var(--orange); }
+  .row-s3 td:first-child { border-left: 2px solid #9933cc; }
+  .row-s4 td:first-child { border-left: 2px solid #5555dd; }
+
+  .total-row td {
+    background: var(--surface2) !important;
+    padding: 14px 16px !important;
+    border-bottom: none !important;
+    border-top: 1px solid var(--border);
+  }
+
+  .total-row td:first-child {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--yellow);
+    border-left: none;
+  }
+
+  .total-row td:not(:first-child) {
+    font-size: 20px;
+    color: var(--yellow) !important;
+  }
+
+  .equity-row td {
+    background: rgba(255,255,255,0.02) !important;
+    border-bottom: none !important;
+  }
+
+  .equity-row td:first-child {
+    font-size: 12px !important;
+    color: var(--text-dim) !important;
+    font-style: italic;
+    border-left: none;
+    font-family: 'Barlow', sans-serif !important;
+  }
+
+  .equity-row td:not(:first-child) {
+    font-size: 13px !important;
+    color: var(--text-dim) !important;
+    font-family: 'Barlow', sans-serif !important;
+    font-weight: 300 !important;
+  }
+
+  /* ── COMPOUNDING MATRIX ── */
+  .matrix-section {
+    margin-bottom: 48px;
+    animation: fadeUp 0.6s 0.7s ease backwards;
+  }
+
+  .matrix-title {
+    font-family: 'Rajdhani', sans-serif;
+    font-size: 20px;
+    font-weight: 700;
+    color: #fff;
+    margin-bottom: 4px;
+  }
+
+  .matrix-sub {
+    font-size: 12px;
+    color: var(--text-dim);
+    margin-bottom: 20px;
+    font-weight: 300;
+  }
+
+  .matrix-grid {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 1px;
+    background: var(--border);
+    border: 1px solid var(--border);
+    border-radius: 2px;
+    overflow: hidden;
+  }
+
+  .matrix-header {
+    background: var(--surface2);
+    padding: 10px 12px;
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 10px;
+    font-weight: 600;
+    letter-spacing: 2px;
+    color: var(--text-dim);
+    text-transform: uppercase;
+    text-align: center;
+  }
+
+  .matrix-header.row-type {
+    text-align: left;
+    color: var(--blue-bright);
+  }
+
+  .matrix-cell {
+    background: var(--surface);
+    padding: 12px 12px;
+    text-align: center;
+    vertical-align: middle;
+  }
+
+  .matrix-row-label {
+    background: var(--surface);
+    padding: 14px 16px;
+    font-size: 12px;
+    font-weight: 500;
+    color: var(--text);
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .matrix-row-label .dot {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: var(--yellow);
+    flex-shrink: 0;
+  }
+
+  .check {
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 13px;
+    margin: 0 auto;
+    font-weight: 700;
+  }
+
+  .check.active {
+    background: rgba(21,21,224,0.2);
+    border: 1px solid var(--blue-bright);
+    color: var(--blue-bright);
+  }
+
+  .check.premium {
+    background: rgba(245,216,0,0.15);
+    border: 1px solid var(--yellow);
+    color: var(--yellow);
+  }
+
+  .check.no {
+    opacity: 0.2;
+    color: var(--text-dim);
+    border: 1px solid var(--border);
+  }
+
+  /* ── FOOTER ── */
+  .footer {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    align-items: center;
+    padding-top: 32px;
+    border-top: 1px solid var(--border);
+    gap: 40px;
+    animation: fadeUp 0.6s 0.8s ease backwards;
+  }
+
+  .footer-thesis {
+    font-size: 13px;
+    font-weight: 300;
+    color: var(--text-dim);
+    line-height: 1.65;
+    max-width: 700px;
+  }
+
+  .footer-thesis strong { color: var(--text); font-weight: 500; }
+
+  .footer-right { text-align: right; }
+
+  .footer-conf {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 9px;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: var(--text-dim);
+    opacity: 0.5;
+  }
+
+  .footer-date {
+    font-family: 'Rajdhani', sans-serif;
+    font-size: 22px;
+    font-weight: 700;
+    color: rgba(255,255,255,0.15);
+    letter-spacing: -1px;
+  }
+
+  /* ── ANIMATIONS ── */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(20px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+
+  .header { animation: fadeUp 0.6s ease backwards; }
+  .thesis { animation: fadeUp 0.6s 0.05s ease backwards; }
+  .streams-grid { animation: fadeUp 0.6s 0.1s ease backwards; }
+</style>
+</head>
+<body>
+<div class="page">
+
+  <!-- HEADER -->
+  <div class="header">
+    <div class="logo-area">
+      <div class="logo-label">Venture Accelerator</div>
+      <div class="logo-name">SPEEDSHIFT <span>VENTURES</span></div>
+      <div class="logo-sub">Speedshift Accelerator &nbsp;·&nbsp; Innovation, Testing & Commercialization</div>
+    </div>
+    <div class="header-right">
+      <div class="doc-title">Investor Brief</div>
+      <div class="headline">Four-Stream<br>Revenue <em>Model</em></div>
+      <div class="tagline">How Speedshift generates returns across the full venture lifecycle</div>
+    </div>
+  </div>
+
+  <!-- THESIS -->
+  <div class="thesis">
+    <div class="thesis-label">Core Thesis</div>
+    <p>Speedshift Ventures builds and commercializes emerging IP across <strong>dual-use technology and sports</strong>. Our four-stream revenue architecture generates <strong>near-term cash flow from services</strong> and <strong>long-term upside from equity and fund returns</strong> — reducing single-point-of-failure risk while compounding value across every relationship.</p>
+  </div>
+
+  <!-- STREAMS -->
+  <div class="section-title">Revenue Architecture</div>
+  <div class="streams-grid">
+
+    <!-- S1 -->
+    <div class="stream-card">
+      <div class="stream-header">
+        <div class="stream-number">1</div>
+        <div class="stream-title-area">
+          <div class="stream-label">Stream One</div>
+          <div class="stream-title">Direct Start-Up Agreements</div>
+        </div>
+      </div>
+      <div class="stream-divider"></div>
+      <div class="stream-body">
+        <div class="stream-desc">Each portfolio company executes a commercial agreement for accelerator services, PDaaS, TaaS, and commercialization support.</div>
+        <div class="stream-items">
+          <div class="stream-item"><div class="item-dot"></div><div class="item-text"><strong>Equity:</strong> 3%–8% stake, milestone-vested over 24–36 months</div></div>
+          <div class="stream-item"><div class="item-dot"></div><div class="item-text"><strong>Cash retainer:</strong> $5K–$25K/month per company</div></div>
+          <div class="stream-item"><div class="item-dot"></div><div class="item-text"><strong>Blended:</strong> Reduced fee + higher equity for early-stage ventures</div></div>
+          <div class="stream-item"><div class="item-dot"></div><div class="item-text"><strong>Preferred partner discounts</strong> for SI, Digital Twin, and Dev roles ↓</div></div>
+        </div>
+        <div class="stream-metric">
+          <div class="metric-label">Est. per cohort (10 cos)</div>
+          <div class="metric-value">$600K–$3M / yr</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- S2 -->
+    <div class="stream-card">
+      <div class="stream-header">
+        <div class="stream-number">2</div>
+        <div class="stream-title-area">
+          <div class="stream-label">Stream Two</div>
+          <div class="stream-title">Capital Raise Participation</div>
+        </div>
+      </div>
+      <div class="stream-divider"></div>
+      <div class="stream-body">
+        <div class="stream-desc">When Speedshift drives a portfolio company's fundraise — pitch prep, investor introductions, diligence, term sheets — it earns a participation fee.</div>
+        <div class="stream-items">
+          <div class="stream-item"><div class="item-dot"></div><div class="item-text"><strong>Cash success fee:</strong> 2%–5% of total capital raised at close</div></div>
+          <div class="stream-item"><div class="item-dot"></div><div class="item-text"><strong>Equity warrant:</strong> 0.5%–2% issued at round valuation in lieu of cash</div></div>
+          <div class="stream-item"><div class="item-dot"></div><div class="item-text"><strong>Blended:</strong> 1%–2% cash + 0.25%–0.5% warrant</div></div>
+          <div class="stream-item"><div class="item-dot"></div><div class="item-text">Speedshift retains pro-rata rights in subsequent rounds</div></div>
+        </div>
+        <div class="stream-metric">
+          <div class="metric-label">Illustrative: $5M raise</div>
+          <div class="metric-value">$100K–$250K</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- S3 -->
+    <div class="stream-card">
+      <div class="stream-header">
+        <div class="stream-number">3</div>
+        <div class="stream-title-area">
+          <div class="stream-label">Stream Three</div>
+          <div class="stream-title">Venture Fund & SPVs</div>
+        </div>
+      </div>
+      <div class="stream-divider"></div>
+      <div class="stream-body">
+        <div class="stream-desc">Investors co-invest into Speedshift's portfolio through a managed fund or deal-by-deal Special Purpose Vehicles (SPVs).</div>
+        <div class="stream-items">
+          <div class="stream-item"><div class="item-dot"></div><div class="item-text"><strong>Micro Fund ($10M–$50M):</strong> 2%/yr mgmt fee + 20% carried interest above 8% hurdle</div></div>
+          <div class="stream-item"><div class="item-dot"></div><div class="item-text"><strong>Deal SPV:</strong> $15K–$30K setup fee + 1%–2% mgmt fee + 15%–20% carry per deal</div></div>
+          <div class="stream-item"><div class="item-dot"></div><div class="item-text"><strong>Direct co-investment:</strong> 1%–2% facilitation fee; board observer rights available</div></div>
+          <div class="stream-item"><div class="item-dot"></div><div class="item-text">SPV can be launched within weeks — faster path to capital than a full fund</div></div>
+        </div>
+        <div class="stream-metric">
+          <div class="metric-label">$25M fund → annual mgmt</div>
+          <div class="metric-value">~$500K + carry</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- S4 -->
+    <div class="stream-card">
+      <div class="stream-header">
+        <div class="stream-number">4</div>
+        <div class="stream-title-area">
+          <div class="stream-label">Stream Four</div>
+          <div class="stream-title">Investor Tech Platform</div>
+        </div>
+      </div>
+      <div class="stream-divider"></div>
+      <div class="stream-body">
+        <div class="stream-desc">Corporations, investors, or government entities that own proprietary IP engage Speedshift to accelerate, test, and commercialize their technologies.</div>
+        <div class="stream-items">
+          <div class="stream-item"><div class="item-dot"></div><div class="item-text"><strong>Advisory + GTM:</strong> $50K–$200K retainer; 3%–5% success fee on first contract</div></div>
+          <div class="stream-item"><div class="item-dot"></div><div class="item-text"><strong>PDaaS:</strong> $25K–$500K per development phase; IP co-ownership option</div></div>
+          <div class="stream-item"><div class="item-dot"></div><div class="item-text"><strong>TaaS (HiLab):</strong> $5K–$15K/week; $60K–$120K annual membership</div></div>
+          <div class="stream-item"><div class="item-dot"></div><div class="item-text"><strong>White-label sponsorship:</strong> $250K–$1M+/yr; exclusive vertical track + ROFR rights</div></div>
+        </div>
+        <div class="stream-metric">
+          <div class="metric-label">Revenue share on contracts</div>
+          <div class="metric-value">5%–10% Year 1</div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- PREFERRED PARTNER DISCOUNTS -->
+  <div class="discount-banner">
+    <div class="discount-title">⚡ Stream 1 Preferred Partner Discount Structure</div>
+    <div class="discount-sub">Companies that designate Speedshift in a preferred technology role receive discounted service rates — converting discounts into high-margin integration, development, and recurring technology contracts</div>
+    <div class="discount-grid">
+      <div class="discount-item">
+        <div class="discount-role">System Integrator of Choice</div>
+        <div class="discount-pct">15–25% <span>discount on fees</span></div>
+        <div class="discount-note">Discount differential may convert to additional equity at next financing round. Speedshift earns recurring SI contract revenue on every customer deployment.</div>
+      </div>
+      <div class="discount-item">
+        <div class="discount-role">Digital Twin Development Partner</div>
+        <div class="discount-pct">10–20% <span>discount on fees</span></div>
+        <div class="discount-note">IP co-ownership rights on jointly developed digital twin assets. Recurring SaaS/platform license revenue. Cross-portfolio reuse of built environments.</div>
+      </div>
+      <div class="discount-item">
+        <div class="discount-role">Web & Software Dev Partner</div>
+        <div class="discount-pct">10–15% <span>discount on fees</span></div>
+        <div class="discount-note">Source code ownership or licensing negotiated at agreement. Ongoing maintenance retainer. Platform stickiness increases long-term company dependency on Speedshift.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- PRO FORMA -->
+  <div class="proforma-section">
+    <div class="section-title">Illustrative Revenue</div>
+    <div class="proforma-title">3-Year Pro Forma — Cash & Fee Revenue</div>
+    <div class="proforma-sub">Conservative-to-base-case projection · 6–10 companies/cohort · 2 cohorts/year · Excludes fund carry and equity appreciation</div>
+    <table class="proforma-table">
+      <thead>
+        <tr>
+          <th>Revenue Stream</th>
+          <th>Year 1 — Launch</th>
+          <th>Year 2 — Growth</th>
+          <th>Year 3 — Scale</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr class="row-s1">
+          <td><span class="stream-tag s1"></span>1A · Equity Agreements (entry value)</td>
+          <td>$500K – $1.5M</td>
+          <td>$1.5M – $4M</td>
+          <td>$3M – $8M</td>
+        </tr>
+        <tr class="row-s1">
+          <td><span class="stream-tag s1"></span>1B · Cash Service Fees</td>
+          <td>$240K – $600K</td>
+          <td>$600K – $1.5M</td>
+          <td>$1.2M – $3M</td>
+        </tr>
+        <tr class="row-s1">
+          <td><span class="stream-tag s1"></span>1C · SI / Digital Twin / Dev Contracts</td>
+          <td>$100K – $300K</td>
+          <td>$400K – $1M</td>
+          <td>$1M – $2.5M</td>
+        </tr>
+        <tr class="row-s2">
+          <td><span class="stream-tag s2"></span>2 · Capital Raise Fees / Equity Warrants</td>
+          <td>$100K – $300K</td>
+          <td>$300K – $750K</td>
+          <td>$750K – $2M</td>
+        </tr>
+        <tr class="row-s3">
+          <td><span class="stream-tag s3"></span>3A · Venture Fund Management Fees</td>
+          <td>$0 – $200K</td>
+          <td>$250K – $500K</td>
+          <td>$500K – $1M</td>
+        </tr>
+        <tr class="row-s3">
+          <td><span class="stream-tag s3"></span>3B · SPV Setup / Admin Fees</td>
+          <td>$30K – $90K</td>
+          <td>$90K – $200K</td>
+          <td>$200K – $450K</td>
+        </tr>
+        <tr class="row-s4">
+          <td><span class="stream-tag s4"></span>4A · Tech Advisory + PDaaS + TaaS</td>
+          <td>$150K – $500K</td>
+          <td>$500K – $1.5M</td>
+          <td>$1.5M – $4M</td>
+        </tr>
+        <tr class="row-s4">
+          <td><span class="stream-tag s4"></span>4B · White-Label / Corporate Sponsorships</td>
+          <td>$0 – $250K</td>
+          <td>$250K – $750K</td>
+          <td>$750K – $2M</td>
+        </tr>
+        <tr class="total-row">
+          <td>Total Cash / Fee Revenue</td>
+          <td>$1.1M – $3.7M</td>
+          <td>$3.4M – $10.2M</td>
+          <td>$8.9M – $22.9M</td>
+        </tr>
+        <tr class="equity-row">
+          <td>+ Portfolio Equity Value at Entry</td>
+          <td>$500K – $1.5M</td>
+          <td>$2M – $6M</td>
+          <td>$5M – $15M+</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- COMPOUNDING MATRIX -->
+  <div class="matrix-section">
+    <div class="section-title">Compounding</div>
+    <div class="matrix-title">Revenue Activation per Relationship Type</div>
+    <div class="matrix-sub">Each relationship type activates multiple streams simultaneously — compounding revenue per engagement</div>
+    <div class="matrix-grid">
+      <div class="matrix-header row-type">Relationship Type</div>
+      <div class="matrix-header">Stream 1<br>Direct Agmt</div>
+      <div class="matrix-header">Stream 2<br>Cap Raise</div>
+      <div class="matrix-header">Stream 3<br>Fund / SPV</div>
+      <div class="matrix-header">Stream 4<br>Tech Platform</div>
+
+      <div class="matrix-row-label"><div class="dot"></div>Portfolio Company (Standard)</div>
+      <div class="matrix-cell"><div class="check active">✓</div></div>
+      <div class="matrix-cell"><div class="check active">✓</div></div>
+      <div class="matrix-cell"><div class="check active">✓</div></div>
+      <div class="matrix-cell"><div class="check no">—</div></div>
+
+      <div class="matrix-row-label"><div class="dot"></div>Portfolio Co. (Preferred SI/DT/Dev)</div>
+      <div class="matrix-cell"><div class="check premium">★</div></div>
+      <div class="matrix-cell"><div class="check active">✓</div></div>
+      <div class="matrix-cell"><div class="check active">✓</div></div>
+      <div class="matrix-cell"><div class="check active">✓</div></div>
+
+      <div class="matrix-row-label"><div class="dot"></div>Corporate Investor with Existing IP</div>
+      <div class="matrix-cell"><div class="check active">✓</div></div>
+      <div class="matrix-cell"><div class="check active">✓</div></div>
+      <div class="matrix-cell"><div class="check active">✓</div></div>
+      <div class="matrix-cell"><div class="check premium">★</div></div>
+
+      <div class="matrix-row-label"><div class="dot"></div>Family Office / Angel Investor</div>
+      <div class="matrix-cell"><div class="check no">—</div></div>
+      <div class="matrix-cell"><div class="check active">✓</div></div>
+      <div class="matrix-cell"><div class="check premium">★</div></div>
+      <div class="matrix-cell"><div class="check active">✓</div></div>
+
+      <div class="matrix-row-label"><div class="dot"></div>Government / Research Institution</div>
+      <div class="matrix-cell"><div class="check active">✓</div></div>
+      <div class="matrix-cell"><div class="check no">—</div></div>
+      <div class="matrix-cell"><div class="check active">✓</div></div>
+      <div class="matrix-cell"><div class="check premium">★</div></div>
+    </div>
+    <div style="display:flex;gap:20px;margin-top:12px;font-size:11.5px;color:var(--text-dim);">
+      <span><span style="display:inline-block;width:20px;height:20px;border-radius:50%;background:rgba(21,21,224,0.2);border:1px solid var(--blue-bright);color:var(--blue-bright);text-align:center;line-height:20px;font-size:10px;vertical-align:middle;margin-right:5px;">✓</span>Active stream</span>
+      <span><span style="display:inline-block;width:20px;height:20px;border-radius:50%;background:rgba(245,216,0,0.15);border:1px solid var(--yellow);color:var(--yellow);text-align:center;line-height:20px;font-size:10px;vertical-align:middle;margin-right:5px;">★</span>Primary / highest-yield activation</span>
+    </div>
+  </div>
+
+  <!-- FOOTER -->
+  <div class="footer">
+    <div class="footer-thesis">
+      <strong>The strategic advantage of this model:</strong> Speedshift generates revenue at every stage of the venture lifecycle — from initial company engagement through testing, capital formation, fund management, and ongoing technology development. Each relationship can activate 2–4 streams simultaneously, creating compounding returns that grow with the portfolio.
+    </div>
+    <div class="footer-right">
+      <div class="footer-conf">Confidential · Investor Use Only</div>
+      <div class="footer-date">MARCH 2026</div>
+    </div>
+  </div>
+
+</div>
+</body>
+</html>

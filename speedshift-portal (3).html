@@ -1,0 +1,649 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Speedshift Ventures — Investment Portal</title>
+<link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@400;500;600;700&family=Exo+2:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --blue: #1400FF;
+    --yellow: #FFD700;
+    --teal: #00d4ff;
+    --white: #f5f5ff;
+    --card-border: rgba(255,215,0,0.25);
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    background: #0a00a8;
+    color: var(--white);
+    font-family: 'Exo 2', sans-serif;
+    min-height: 100vh;
+    overflow-x: hidden;
+  }
+
+  body::before {
+    content: '';
+    position: fixed; inset: 0;
+    background-image:
+      linear-gradient(rgba(0,212,255,0.04) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(0,212,255,0.04) 1px, transparent 1px);
+    background-size: 60px 60px;
+    z-index: 0; pointer-events: none;
+  }
+
+  body::after {
+    content: '';
+    position: fixed; top: -200px; right: -200px;
+    width: 700px; height: 700px;
+    background: radial-gradient(circle, rgba(0,212,255,0.12) 0%, transparent 70%);
+    pointer-events: none; z-index: 0;
+  }
+
+  .container { max-width: 1280px; margin: 0 auto; padding: 0 32px; position: relative; z-index: 1; }
+
+  /* ── HEADER ── */
+  header {
+    padding: 28px 0 24px;
+    border-bottom: 1px solid rgba(255,215,0,0.2);
+    position: sticky; top: 0;
+    background: rgba(10,0,168,0.9);
+    backdrop-filter: blur(16px);
+    z-index: 100;
+  }
+  .header-inner { display: flex; align-items: center; justify-content: space-between; gap: 24px; flex-wrap: wrap; }
+  .logo-group { display: flex; align-items: center; gap: 14px; }
+  .logo-mark {
+    width: 44px; height: 44px; flex-shrink: 0;
+    background: linear-gradient(135deg, var(--yellow) 0%, var(--teal) 100%);
+    clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);
+  }
+  .logo-text { font-family: 'Rajdhani', sans-serif; font-weight: 700; font-size: 1.4rem; letter-spacing: 0.08em; text-transform: uppercase; }
+  .logo-text span { color: var(--yellow); }
+  .header-badge { font-size: 0.65rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--teal); border: 1px solid rgba(0,212,255,0.3); padding: 4px 10px; border-radius: 2px; }
+  nav { display: flex; gap: 8px; flex-wrap: wrap; }
+  .nav-btn {
+    font-family: 'Rajdhani', sans-serif; font-weight: 600; font-size: 0.8rem;
+    letter-spacing: 0.12em; text-transform: uppercase;
+    background: transparent; border: 1px solid rgba(255,255,255,0.2);
+    color: rgba(255,255,255,0.7); padding: 8px 16px; border-radius: 3px; cursor: pointer; transition: all 0.2s;
+  }
+  .nav-btn:hover, .nav-btn.active { background: rgba(255,215,0,0.1); border-color: var(--yellow); color: var(--yellow); }
+
+  /* ── HERO ── */
+  .hero { padding: 72px 0 56px; text-align: center; }
+  .hero-eyebrow {
+    font-size: 0.7rem; letter-spacing: 0.35em; text-transform: uppercase; color: var(--teal);
+    margin-bottom: 20px; display: flex; align-items: center; justify-content: center; gap: 12px;
+  }
+  .hero-eyebrow::before, .hero-eyebrow::after { content: ''; width: 48px; height: 1px; background: var(--teal); opacity: 0.5; }
+  .hero h1 { font-family: 'Rajdhani', sans-serif; font-weight: 700; font-size: clamp(2.4rem, 5vw, 4rem); line-height: 1.05; letter-spacing: 0.04em; text-transform: uppercase; margin-bottom: 20px; }
+  .hero h1 em { font-style: normal; color: var(--yellow); display: block; }
+  .hero-sub { font-size: 1rem; color: rgba(255,255,255,0.65); max-width: 580px; margin: 0 auto 40px; line-height: 1.65; font-weight: 300; }
+
+  /* ── STATS ── */
+  .stats-bar { display: flex; justify-content: center; border: 1px solid rgba(255,215,0,0.2); border-radius: 6px; overflow: hidden; max-width: 860px; margin: 0 auto 64px; flex-wrap: wrap; }
+  .stat-item { flex: 1; min-width: 130px; padding: 20px 24px; text-align: center; border-right: 1px solid rgba(255,215,0,0.15); background: rgba(255,255,255,0.03); }
+  .stat-item:last-child { border-right: none; }
+  .stat-num { font-family: 'Rajdhani', sans-serif; font-weight: 700; font-size: 1.9rem; color: var(--yellow); line-height: 1; margin-bottom: 4px; }
+  .stat-label { font-size: 0.65rem; letter-spacing: 0.18em; text-transform: uppercase; color: rgba(255,255,255,0.45); }
+
+  /* ── FILTERS ── */
+  .filters { display: flex; align-items: center; gap: 10px; margin-bottom: 36px; flex-wrap: wrap; }
+  .filter-label { font-size: 0.65rem; letter-spacing: 0.2em; text-transform: uppercase; color: rgba(255,255,255,0.4); }
+  .filter-btn {
+    font-family: 'Rajdhani', sans-serif; font-weight: 600; font-size: 0.75rem;
+    letter-spacing: 0.1em; text-transform: uppercase;
+    background: transparent; border: 1px solid rgba(255,255,255,0.15);
+    color: rgba(255,255,255,0.6); padding: 7px 16px; border-radius: 3px; cursor: pointer; transition: all 0.2s;
+  }
+  .filter-btn:hover, .filter-btn.active { background: rgba(255,215,0,0.12); border-color: rgba(255,215,0,0.6); color: var(--yellow); }
+
+  /* ── SECTION HEADER ── */
+  .section-header { display: flex; align-items: baseline; gap: 16px; margin-bottom: 28px; }
+  .section-title { font-family: 'Rajdhani', sans-serif; font-weight: 700; font-size: 1.5rem; letter-spacing: 0.1em; text-transform: uppercase; white-space: nowrap; }
+  .section-title span { color: var(--yellow); }
+  .section-line { flex: 1; height: 1px; background: linear-gradient(90deg, rgba(255,215,0,0.3), transparent); }
+
+  /* ── CARDS ── */
+  .cards-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(340px, 1fr)); gap: 20px; margin-bottom: 64px; }
+
+  .card {
+    background: rgba(255,255,255,0.05);
+    border: 1px solid var(--card-border);
+    border-radius: 6px; overflow: hidden;
+    transition: all 0.3s ease; cursor: pointer;
+    position: relative; display: flex; flex-direction: column;
+    animation: fadeUp 0.4s ease both;
+  }
+  .card::before {
+    content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px;
+    background: linear-gradient(90deg, transparent, var(--yellow), transparent);
+    opacity: 0; transition: opacity 0.3s; z-index: 2;
+  }
+  .card:hover { border-color: rgba(255,215,0,0.6); background: rgba(255,255,255,0.08); transform: translateY(-3px); box-shadow: 0 12px 40px rgba(0,0,0,0.4), 0 0 30px rgba(255,215,0,0.08); }
+  .card:hover::before { opacity: 1; }
+
+  /* Card image */
+  .card-image { width: 100%; height: 175px; overflow: hidden; background: rgba(0,0,0,0.3); position: relative; flex-shrink: 0; }
+  .card-image img { width: 100%; height: 100%; object-fit: cover; display: block; transition: transform 0.4s ease; }
+  .card:hover .card-image img { transform: scale(1.05); }
+  .card-img-placeholder {
+    width: 100%; height: 100%;
+    display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 8px;
+    background: linear-gradient(135deg, rgba(0,0,80,0.7), rgba(0,40,120,0.5));
+  }
+  .card-img-placeholder .ph-icon { font-size: 2.5rem; opacity: 0.45; }
+  .card-img-placeholder .ph-label { font-size: 0.58rem; letter-spacing: 0.2em; text-transform: uppercase; color: rgba(255,255,255,0.25); }
+  .card-image-fade { position: absolute; bottom: 0; left: 0; right: 0; height: 64px; background: linear-gradient(transparent, rgba(10,0,168,0.9)); pointer-events: none; }
+  .card-invest-badge {
+    position: absolute; top: 10px; right: 10px; z-index: 2;
+    font-family: 'Rajdhani', sans-serif; font-weight: 700; font-size: 0.78rem;
+    letter-spacing: 0.1em; text-transform: uppercase;
+    background: rgba(0,0,0,0.65); border: 1px solid rgba(255,215,0,0.55);
+    color: var(--yellow); padding: 4px 10px; border-radius: 2px;
+    backdrop-filter: blur(4px);
+  }
+
+  .card-header { padding: 14px 18px 12px; border-bottom: 1px solid rgba(255,255,255,0.07); display: flex; align-items: flex-start; justify-content: space-between; gap: 10px; }
+  .card-company { font-family: 'Rajdhani', sans-serif; font-weight: 700; font-size: 1.15rem; letter-spacing: 0.06em; text-transform: uppercase; line-height: 1.1; }
+  .card-sector-tag { font-size: 0.57rem; letter-spacing: 0.17em; text-transform: uppercase; color: var(--teal); margin-top: 3px; }
+  .card-stage { font-family: 'Rajdhani', sans-serif; font-weight: 600; font-size: 0.68rem; letter-spacing: 0.1em; text-transform: uppercase; color: rgba(255,255,255,0.4); border: 1px solid rgba(255,255,255,0.12); padding: 3px 8px; border-radius: 2px; white-space: nowrap; }
+
+  .card-body { padding: 13px 18px; flex: 1; }
+  .card-desc { font-size: 0.82rem; color: rgba(255,255,255,0.62); line-height: 1.58; margin-bottom: 13px; font-weight: 300; }
+  .cust-block { margin-bottom: 10px; }
+  .cust-label { font-size: 0.57rem; letter-spacing: 0.18em; text-transform: uppercase; color: rgba(255,255,255,0.33); margin-bottom: 5px; }
+  .cust-tags { display: flex; flex-wrap: wrap; gap: 4px; }
+  .tag { font-size: 0.62rem; padding: 2px 8px; border-radius: 2px; }
+  .tag-existing { background: rgba(0,212,255,0.1); border: 1px solid rgba(0,212,255,0.22); color: var(--teal); }
+  .tag-target   { background: rgba(255,215,0,0.07); border: 1px solid rgba(255,215,0,0.22); color: rgba(255,215,0,0.8); }
+
+  .card-footer { padding: 11px 18px; border-top: 1px solid rgba(255,255,255,0.07); display: flex; gap: 8px; }
+  .btn-room {
+    flex: 1; font-family: 'Rajdhani', sans-serif; font-weight: 600; font-size: 0.7rem;
+    letter-spacing: 0.14em; text-transform: uppercase;
+    background: rgba(255,215,0,0.12); border: 1px solid rgba(255,215,0,0.4);
+    color: var(--yellow); padding: 9px 12px; border-radius: 3px; cursor: pointer; transition: all 0.2s; text-align: center;
+  }
+  .btn-room:hover { background: rgba(255,215,0,0.22); border-color: var(--yellow); }
+  .btn-more {
+    font-family: 'Rajdhani', sans-serif; font-weight: 600; font-size: 0.7rem;
+    letter-spacing: 0.14em; text-transform: uppercase;
+    background: transparent; border: 1px solid rgba(255,255,255,0.14);
+    color: rgba(255,255,255,0.45); padding: 9px 12px; border-radius: 3px; cursor: pointer; transition: all 0.2s;
+  }
+  .btn-more:hover { border-color: rgba(255,255,255,0.35); color: var(--white); }
+
+  /* ── MODAL ── */
+  .modal-overlay {
+    display: none; position: fixed; inset: 0;
+    background: rgba(5,0,80,0.88); backdrop-filter: blur(8px);
+    z-index: 200; align-items: center; justify-content: center; padding: 20px;
+  }
+  .modal-overlay.open { display: flex; }
+  .modal {
+    background: #0d00d0; border: 1px solid rgba(255,215,0,0.35); border-radius: 8px;
+    max-width: 660px; width: 100%; max-height: 92vh; overflow-y: auto; position: relative;
+    box-shadow: 0 40px 100px rgba(0,0,0,0.6);
+  }
+  .modal::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px; background: linear-gradient(90deg, var(--yellow), var(--teal)); z-index: 2; }
+
+  .modal-hero { width: 100%; height: 200px; overflow: hidden; position: relative; background: #080070; flex-shrink: 0; }
+  .modal-hero img { width: 100%; height: 100%; object-fit: cover; display: block; }
+  .modal-hero-placeholder { width: 100%; height: 100%; display: flex; align-items: center; justify-content: center; font-size: 4.5rem; opacity: 0.35; background: linear-gradient(135deg, #060060, #0030a0); }
+  .modal-hero-fade { position: absolute; bottom: 0; left: 0; right: 0; height: 80px; background: linear-gradient(transparent, #0d00d0); }
+
+  .modal-header { padding: 18px 28px 16px; border-bottom: 1px solid rgba(255,255,255,0.08); display: flex; align-items: flex-start; justify-content: space-between; gap: 16px; }
+  .modal-name { font-family: 'Rajdhani', sans-serif; font-weight: 700; font-size: 1.9rem; letter-spacing: 0.05em; text-transform: uppercase; line-height: 1; margin-bottom: 5px; }
+  .modal-sector { font-size: 0.62rem; letter-spacing: 0.18em; text-transform: uppercase; color: var(--teal); }
+  .modal-x { background: transparent; border: 1px solid rgba(255,255,255,0.2); color: rgba(255,255,255,0.55); width: 34px; height: 34px; border-radius: 3px; cursor: pointer; font-size: 1rem; display: flex; align-items: center; justify-content: center; flex-shrink: 0; transition: all 0.2s; }
+  .modal-x:hover { border-color: var(--yellow); color: var(--yellow); }
+
+  .modal-body { padding: 20px 28px 28px; }
+  .modal-stats { display: flex; gap: 12px; margin-bottom: 20px; flex-wrap: wrap; }
+  .m-stat { flex: 1; min-width: 90px; background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); border-radius: 4px; padding: 12px 14px; text-align: center; }
+  .m-stat-val { font-family: 'Rajdhani', sans-serif; font-weight: 700; font-size: 1.35rem; color: var(--yellow); }
+  .m-stat-lbl { font-size: 0.57rem; letter-spacing: 0.18em; text-transform: uppercase; color: rgba(255,255,255,0.35); margin-top: 2px; }
+
+  .modal-desc { font-size: 0.9rem; color: rgba(255,255,255,0.7); line-height: 1.7; margin-bottom: 20px; font-weight: 300; }
+  .modal-cust-lbl { font-size: 0.6rem; letter-spacing: 0.2em; text-transform: uppercase; color: rgba(255,255,255,0.33); margin-bottom: 8px; }
+  .modal-tags { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 18px; }
+  .m-tag { font-size: 0.68rem; padding: 4px 11px; border-radius: 2px; }
+
+  .dr-box { background: rgba(0,0,0,0.22); border: 1px solid rgba(255,215,0,0.2); border-radius: 4px; padding: 18px; }
+  .dr-title { font-family: 'Rajdhani', sans-serif; font-weight: 600; font-size: 0.9rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--yellow); margin-bottom: 14px; }
+  .form-row { display: flex; gap: 10px; margin-bottom: 10px; }
+  .f-input { flex: 1; background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.15); border-radius: 3px; color: var(--white); font-family: 'Exo 2', sans-serif; font-size: 0.82rem; padding: 10px 13px; outline: none; transition: border-color 0.2s; }
+  .f-input::placeholder { color: rgba(255,255,255,0.3); }
+  .f-input:focus { border-color: rgba(255,215,0,0.5); }
+  .f-submit { width: 100%; font-family: 'Rajdhani', sans-serif; font-weight: 700; font-size: 0.84rem; letter-spacing: 0.2em; text-transform: uppercase; background: rgba(255,215,0,0.14); border: 1px solid rgba(255,215,0,0.5); color: var(--yellow); padding: 12px; border-radius: 3px; cursor: pointer; transition: all 0.2s; margin-top: 4px; }
+  .f-submit:hover { background: rgba(255,215,0,0.24); border-color: var(--yellow); }
+  .f-submit:disabled { opacity: 0.55; cursor: default; }
+  .divider { display: flex; align-items: center; gap: 12px; margin: 14px 0; }
+  .div-line { flex: 1; height: 1px; background: rgba(255,255,255,0.1); }
+  .div-txt { font-size: 0.6rem; color: rgba(255,255,255,0.28); letter-spacing: 0.1em; }
+  .dr-link { display: block; width: 100%; font-family: 'Rajdhani', sans-serif; font-weight: 600; font-size: 0.78rem; letter-spacing: 0.15em; text-transform: uppercase; background: rgba(0,212,255,0.1); border: 1px solid rgba(0,212,255,0.28); color: var(--teal); padding: 10px; border-radius: 3px; cursor: pointer; transition: all 0.2s; text-align: center; text-decoration: none; }
+  .dr-link:hover { background: rgba(0,212,255,0.18); border-color: var(--teal); }
+
+  .hidden { display: none !important; }
+
+  footer { border-top: 1px solid rgba(255,215,0,0.15); padding: 32px 0; text-align: center; color: rgba(255,255,255,0.25); font-size: 0.7rem; letter-spacing: 0.08em; }
+  footer p + p { margin-top: 8px; color: rgba(255,255,255,0.12); }
+
+  @keyframes fadeUp { from { opacity: 0; transform: translateY(18px); } to { opacity: 1; transform: translateY(0); } }
+
+  @media (max-width: 640px) {
+    .form-row { flex-direction: column; }
+    .stats-bar { flex-direction: column; }
+    .stat-item { border-right: none; border-bottom: 1px solid rgba(255,215,0,0.1); }
+    nav { display: none; }
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="container">
+    <div class="header-inner">
+      <div class="logo-group">
+        <div class="logo-mark"></div>
+        <div>
+          <div class="logo-text"><span>Speedshift</span> Ventures</div>
+          <div class="header-badge">Investment Portal</div>
+        </div>
+      </div>
+      <nav id="nav-bar">
+        <button class="nav-btn active" data-filter="all">All</button>
+        <button class="nav-btn" data-filter="testing">Testing &amp; Tech</button>
+        <button class="nav-btn" data-filter="defense">Defense &amp; Security</button>
+        <button class="nav-btn" data-filter="aviation">Aviation</button>
+        <button class="nav-btn" data-filter="sports">Sports</button>
+      </nav>
+    </div>
+  </div>
+</header>
+
+<div class="container">
+  <section class="hero">
+    <div class="hero-eyebrow">Speedshift Accelerator — Portfolio Overview</div>
+    <h1>Invest in the<em>Technologies of Tomorrow</em></h1>
+    <p class="hero-sub">A venture accelerator bridging the gap between IP innovation and commercial scale — across defense, aviation, mobility, sports, and beyond.</p>
+    <div class="stats-bar">
+      <div class="stat-item"><div class="stat-num">$155M+</div><div class="stat-label">Total Investment Opportunity</div></div>
+      <div class="stat-item"><div class="stat-num">12</div><div class="stat-label">Portfolio Companies</div></div>
+      <div class="stat-item"><div class="stat-num">6</div><div class="stat-label">Target Sectors</div></div>
+      <div class="stat-item"><div class="stat-num">PDaaS</div><div class="stat-label">Development Model</div></div>
+      <div class="stat-item"><div class="stat-num">VC</div><div class="stat-label">Fund Structure</div></div>
+    </div>
+  </section>
+
+  <div class="filters" id="filter-bar">
+    <span class="filter-label">Filter:</span>
+    <button class="filter-btn active" data-filter="all">All Companies</button>
+    <button class="filter-btn" data-filter="testing">Testing &amp; Tech</button>
+    <button class="filter-btn" data-filter="defense">Defense &amp; Security</button>
+    <button class="filter-btn" data-filter="aviation">Aviation</button>
+    <button class="filter-btn" data-filter="sports">Sports</button>
+  </div>
+
+  <div id="cards-root"></div>
+</div>
+
+<footer>
+  <div class="container">
+    <p>© 2026 Speedshift Ventures · Speedshift Accelerator · Confidential Investment Materials</p>
+    <p>All investment opportunities are subject to accredited investor verification and applicable securities laws.</p>
+  </div>
+</footer>
+
+<!-- MODAL -->
+<div class="modal-overlay" id="modal-overlay">
+  <div class="modal">
+    <div class="modal-hero" id="m-hero"></div>
+    <div class="modal-header">
+      <div>
+        <div class="modal-name" id="m-name"></div>
+        <div class="modal-sector" id="m-sector"></div>
+      </div>
+      <button class="modal-x" id="m-close">✕</button>
+    </div>
+    <div class="modal-body">
+      <div class="modal-stats">
+        <div class="m-stat"><div class="m-stat-val" id="m-invest"></div><div class="m-stat-lbl">Investment Target</div></div>
+        <div class="m-stat"><div class="m-stat-val" id="m-stage"></div><div class="m-stat-lbl">Stage</div></div>
+        <div class="m-stat"><div class="m-stat-val" id="m-stag"></div><div class="m-stat-lbl">Primary Sector</div></div>
+      </div>
+      <p class="modal-desc" id="m-desc"></p>
+      <div class="modal-cust-lbl">Existing Customers</div>
+      <div class="modal-tags" id="m-existing"></div>
+      <div class="modal-cust-lbl">Target Customers</div>
+      <div class="modal-tags" id="m-targets"></div>
+      <div class="dr-box">
+        <div class="dr-title">🔒 Request Data Room Access</div>
+        <div class="form-row">
+          <input class="f-input" id="f-name" placeholder="Full Name" type="text">
+          <input class="f-input" id="f-co" placeholder="Company / Fund" type="text">
+        </div>
+        <div class="form-row">
+          <input class="f-input" id="f-email" placeholder="Email Address" type="email">
+          <input class="f-input" id="f-phone" placeholder="Phone (optional)" type="tel">
+        </div>
+        <button class="f-submit" id="f-submit">Submit Access Request →</button>
+        <div class="divider"><div class="div-line"></div><span class="div-txt">or if you have a link</span><div class="div-line"></div></div>
+        <a href="#" class="dr-link" id="m-dr-link" target="_blank">Open Data Room Directly ↗</a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+(function () {
+  // ── DATA ────────────────────────────────────────────────────────────────────
+  // imageUrl: replace with your hosted image URL or a relative path like "./images/aliaro.jpg"
+  // dataroom: replace '#' with your DocSend / Dropbox / Notion data room URL
+
+  var COMPANIES = [
+    {
+      id:'aliaro', cat:'testing',
+      name:'ALIARO', sector:'Hardware/Software-in-the-Loop · Automotive · Aviation',
+      invest:'$10M', stage:'Growth', stag:'Testing',
+      imageUrl:'https://images.unsplash.com/photo-1581092162384-8987c1d64926?w=700&q=80',
+      imgAlt:'Testing equipment rack',
+      icon:'🔬',
+      desc:'Uniquely flexible testing equipment for Hardware and Software-in-the-Loop systems used in automotive and aviation applications. Enables full-scale integration testing and significant engineering cost reduction through shared services and cloud-connected global test centres.',
+      existing:['Ford','GM','Daimler'],
+      targets:['BMW','VW','Boeing','Aviation OEMs'],
+      dataroom:'#'
+    },
+    {
+      id:'adapta', cat:'testing',
+      name:'Adapta Robotics', sector:'Robotic Testing · Generative AI · Multi-Industry',
+      invest:'$5M', stage:'Early Growth', stag:'Robotics',
+      imageUrl:'https://images.unsplash.com/photo-1485827404703-89b55fcc595e?w=700&q=80',
+      imgAlt:'Robotic arm testing environment',
+      icon:'🤖',
+      desc:'Robotic testing units built for diverse purposes — phones, tablets, vehicle and airplane displays, medical devices, and gaming systems — powered by Generative AI for adaptive test execution. Core component of the HiLab Development and Testing as a Service platform.',
+      existing:['Meta','T-Mobile'],
+      targets:['BMW','VW','Boeing','Automotive OEMs'],
+      dataroom:'#'
+    },
+    {
+      id:'conekt', cat:'testing',
+      name:'Conekt', sector:'eSIM · Connectivity Management Platform · IoT',
+      invest:'$5M', stage:'Growth', stag:'Telecom',
+      imageUrl:'https://images.unsplash.com/photo-1544197150-b99a580bb7a8?w=700&q=80',
+      imgAlt:'Wireless network visualisation',
+      icon:'📡',
+      desc:'eSIM solution and Connectivity Management Platform providing a single-pane-of-glass interface to manage wireless devices across Wi-Fi, cellular, and satellite networks. Enables seamless connectivity for fleets, drones, and connected vehicles.',
+      existing:['Amazon Fleet','Prime Air'],
+      targets:['Ford','BMW','VW','OEMs'],
+      dataroom:'#'
+    },
+    {
+      id:'soar', cat:'defense',
+      name:'SOAR Intelligent Solutions', sector:'Defense · Aerospace Engineering · AI/ML',
+      invest:'$5M', stage:'Established', stag:'Defense',
+      imageUrl:'https://images.unsplash.com/photo-1559685202-98b5c0e8e2b8?w=700&q=80',
+      imgAlt:'Military drone in flight',
+      icon:'🚁',
+      desc:'Testing and development specialising in military operational knowledge, aerospace engineering, machine learning/AI and software engineering. Includes drone-in-a-box manufacturing kits and perimeter intelligence systems. AFWERX matched investment 1:1.',
+      existing:['USG','USAF'],
+      targets:['AFWERX 1:1 Match','DoD Programs'],
+      dataroom:'#'
+    },
+    {
+      id:'decision', cat:'defense',
+      name:'Decision Sciences', sector:'Nuclear/Muon Scanning · Border Security · Ports',
+      invest:'$100M', stage:'Scale', stag:'Security',
+      imageUrl:'https://images.unsplash.com/photo-1578575437130-527eed3abbec?w=700&q=80',
+      imgAlt:'Shipping containers at port',
+      icon:'🔭',
+      desc:'Los Alamos-developed technology that sees through any dense material from any angle. Visually detects anomalies and contraband from the legitimate trade flow, revealing voids where contraband or humans are hiding. Deployed at national borders and ports globally.',
+      existing:['USG','Singapore','UAE','International Govts'],
+      targets:['Ports','Borders','Stadiums','City Infrastructure'],
+      dataroom:'#'
+    },
+    {
+      id:'gunsens', cat:'defense',
+      name:'GunSens', sector:'AI Security · Active Shooter Detection · Public Safety',
+      invest:'$5M', stage:'Pre-Scale', stag:'Public Safety',
+      imageUrl:'https://images.unsplash.com/photo-1557597774-9d273605dfa9?w=700&q=80',
+      imgAlt:'Security surveillance control room',
+      icon:'🛡️',
+      desc:'AI-based gun detection that identifies active shooters before shots are fired. Integrates AI gun detectors, wireless panic buttons, and live bodycams for real-time threat protection. Designed for rapid deployment in schools, airports, and government offices.',
+      existing:['Amazon Warehouses (soon)'],
+      targets:['Schools','Airports','Government Offices','Large Venues'],
+      dataroom:'#'
+    },
+    {
+      id:'adept', cat:'aviation',
+      name:'Adept Airmotive', sector:'Aviation Propulsion · Lightweight Engines · Military',
+      invest:'$10M', stage:'Development', stag:'Aviation',
+      imageUrl:'https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=700&q=80',
+      imgAlt:'Aircraft engine detail',
+      icon:'⚙️',
+      desc:'Revolutionary lightweight aviation engine delivering equivalent power to traditional engines while running on standard Auto Fuel — reducing fuelling costs by 70%. Breakthrough propulsion economics for military and commercial aviation markets.',
+      existing:['Military Aircraft','Experimental Programs'],
+      targets:['Military Aviation','Consumer Aircraft'],
+      dataroom:'#'
+    },
+    {
+      id:'nighthawk', cat:'aviation',
+      name:'Nighthawk Flight Systems', sector:'Advanced Avionics · Cockpit Systems · Weight Reduction',
+      invest:'$6M', stage:'Early Growth', stag:'Avionics',
+      imageUrl:'https://images.unsplash.com/photo-1436891620584-47fd0e565afb?w=700&q=80',
+      imgAlt:'Modern aircraft cockpit with HD displays',
+      icon:'🖥️',
+      desc:'Aviation cockpit control systems with high-definition screens and controls at 50% the weight of current cockpit hardware. Available for initial OEM production and aftermarket installation, dramatically improving pilot situational awareness.',
+      existing:['Comp Air','Experimental Programs'],
+      targets:['Military Aviation','Consumer Aircraft OEMs'],
+      dataroom:'#'
+    },
+    {
+      id:'laviasa', cat:'aviation',
+      name:'Laviasa Aeroindustria', sector:'Aircraft Manufacturing · Type Certificates · FAA Certified',
+      invest:'$5M', stage:'Established', stag:'Manufacturing',
+      imageUrl:'https://images.unsplash.com/photo-1474302770737-173ee21bab63?w=700&q=80',
+      imgAlt:'Small aircraft fleet on runway',
+      icon:'✈️',
+      desc:'Argentinian aircraft manufacturer holding Type Certificates for the Piper Aircraft line including all parts sales worldwide. Full manufacturing facility with FAA-certified aircraft production serving governments, agriculture, firefighting, and military customers.',
+      existing:['Multiple Governments','Agricultural Operators','Firefighting','Military'],
+      targets:['Expanded Government Contracts','Commercial Aviation'],
+      dataroom:'#'
+    },
+    {
+      id:'connected', cat:'sports',
+      name:'Connected Performance', sector:'Athlete Management · Training Platform · SaaS',
+      invest:'$3M', stage:'Growth', stag:'Sports Tech',
+      imageUrl:'https://images.unsplash.com/photo-1546483875-ad9014c88eba?w=700&q=80',
+      imgAlt:'Athlete performance training analytics dashboard',
+      icon:'📊',
+      desc:'Fully integrated training operations and athlete management platform for performance facilities, remote coaches, and development programmes. Centralises workouts, athlete data, scheduling, payments, contracts, and communication. 1,200+ facilities and 10,000 users.',
+      existing:['ATP','Pitch2Pitch','TotalArmCare','PRP'],
+      targets:['1,200+ Facilities','10,000 Users','Collegiate Programs'],
+      dataroom:'#'
+    },
+    {
+      id:'pivotal', cat:'sports',
+      name:'Pivotal Sports', sector:'Virtual Coaching · Youth Athletics · AI Performance',
+      invest:'$500K', stage:'Seed', stag:'Sports',
+      imageUrl:'https://images.unsplash.com/photo-1593341646782-e0b495cff86d?w=700&q=80',
+      imgAlt:'Youth athlete baseball training session',
+      icon:'⚾',
+      desc:'Virtual coaching for athletes aged 8–18 delivered by former professional players. Features pitch data analytics, video comparison, S2 Cognition testing, coach feedback, and AI-generated coaching recommendations based on individual performance results.',
+      existing:['PRO5'],
+      targets:['Youth Sports Teams','Performance Facilities','Athletic Academies'],
+      dataroom:'#'
+    },
+    {
+      id:'scoutus', cat:'sports',
+      name:'ScoutUs Pro / College', sector:'Talent Recruitment · NIL · AI Scouting · Database',
+      invest:'$1M', stage:'Pre-Scale', stag:'Sports Tech',
+      imageUrl:'https://images.unsplash.com/photo-1575361204480-aadea25e6e68?w=700&q=80',
+      imgAlt:'Sports talent scouting and recruitment',
+      icon:'🏆',
+      desc:'Revolutionary platform enabling coaches and sports professionals to discover talent worldwide. Built by former athletes, coaches, agents and executives. Provides verifiable performance data and direct athlete-to-scout connections from youth through professional levels, including NIL strategy tools.',
+      existing:['Platform Launching'],
+      targets:['Scouts & Recruiters','Pro Teams','Collegiate Programs','Student Athletes'],
+      dataroom:'#'
+    }
+  ];
+
+  var SECTIONS = [
+    { id:'testing', label:'Testing & Technology' },
+    { id:'defense', label:'Defense & Security' },
+    { id:'aviation', label:'Aviation Portfolio' },
+    { id:'sports',  label:'Sports Technology' }
+  ];
+
+  var currentFilter = 'all';
+
+  // ── HELPERS ────────────────────────────────────────────────────────────────
+  function esc(s){ return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;'); }
+
+  function imgHtml(c, isModal) {
+    var cls = isModal ? 'modal-hero' : 'card-image';
+    var fade = isModal ? 'modal-hero-fade' : 'card-image-fade';
+    var inner = c.imageUrl
+      ? '<img src="'+esc(c.imageUrl)+'" alt="'+esc(c.imgAlt)+'" loading="lazy">'
+      : '<div class="'+(isModal?'modal-hero-placeholder':'card-img-placeholder')+'">'
+          + (isModal ? esc(c.icon) : '<span class="ph-icon">'+esc(c.icon)+'</span><span class="ph-label">Image Placeholder</span>')
+          + '</div>';
+    var badge = isModal ? '' : '<div class="card-invest-badge">'+esc(c.invest)+'</div>';
+    return '<div class="'+cls+'" id="'+(isModal?'m-hero':'img-'+c.id)+'">'
+      + inner + '<div class="'+fade+'"></div>' + badge + '</div>';
+  }
+
+  function tagsHtml(arr, cls) {
+    return arr.map(function(t){ return '<span class="tag '+cls+'">'+esc(t)+'</span>'; }).join('');
+  }
+
+  // ── RENDER CARDS ──────────────────────────────────────────────────────────
+  function render() {
+    var root = document.getElementById('cards-root');
+    var html = '';
+    SECTIONS.forEach(function(sec) {
+      var list = COMPANIES.filter(function(c){
+        return c.cat === sec.id && (currentFilter === 'all' || currentFilter === sec.id);
+      });
+      if (!list.length) return;
+      var parts = sec.label.split(' ');
+      var titleHtml = '<span>'+esc(parts[0])+'</span> '+parts.slice(1).map(esc).join(' ');
+      html += '<div class="section-header"><div class="section-title">'+titleHtml+'</div><div class="section-line"></div></div>';
+      html += '<div class="cards-grid">';
+      list.forEach(function(c){
+        var shortDesc = c.desc.length > 155 ? c.desc.substring(0,155)+'…' : c.desc;
+        html +=
+          '<div class="card" data-id="'+esc(c.id)+'">'
+          + imgHtml(c, false)
+          + '<div class="card-header">'
+              + '<div><div class="card-company">'+esc(c.name)+'</div>'
+              + '<div class="card-sector-tag">'+esc(c.sector)+'</div></div>'
+              + '<div class="card-stage">'+esc(c.stage)+'</div>'
+          + '</div>'
+          + '<div class="card-body">'
+              + '<p class="card-desc">'+esc(shortDesc)+'</p>'
+              + '<div class="cust-block"><div class="cust-label">Existing Customers</div><div class="cust-tags">'+tagsHtml(c.existing,'tag-existing')+'</div></div>'
+              + '<div class="cust-block"><div class="cust-label">Target Customers</div><div class="cust-tags">'+tagsHtml(c.targets,'tag-target')+'</div></div>'
+          + '</div>'
+          + '<div class="card-footer">'
+              + '<span class="btn-room" data-id="'+esc(c.id)+'" data-act="open">Access Data Room</span>'
+              + '<button class="btn-more" data-id="'+esc(c.id)+'" data-act="open">Details</button>'
+          + '</div>'
+          + '</div>';
+      });
+      html += '</div>';
+    });
+    root.innerHTML = html;
+  }
+
+  // ── FILTER ────────────────────────────────────────────────────────────────
+  function setFilter(val) {
+    currentFilter = val;
+    document.querySelectorAll('[data-filter]').forEach(function(b){
+      b.classList.toggle('active', b.getAttribute('data-filter') === val);
+    });
+    render();
+  }
+
+  document.getElementById('nav-bar').addEventListener('click', function(e){
+    var b = e.target.closest('[data-filter]');
+    if (b) setFilter(b.getAttribute('data-filter'));
+  });
+  document.getElementById('filter-bar').addEventListener('click', function(e){
+    var b = e.target.closest('[data-filter]');
+    if (b) setFilter(b.getAttribute('data-filter'));
+  });
+
+  // ── CARD CLICKS ───────────────────────────────────────────────────────────
+  document.getElementById('cards-root').addEventListener('click', function(e){
+    var actionEl = e.target.closest('[data-act]');
+    if (actionEl) { e.stopPropagation(); openModal(actionEl.getAttribute('data-id')); return; }
+    var card = e.target.closest('.card');
+    if (card) openModal(card.getAttribute('data-id'));
+  });
+
+  // ── MODAL ────────────────────────────────────────────────────────────────
+  function openModal(id) {
+    var c = COMPANIES.find(function(x){ return x.id === id; });
+    if (!c) return;
+
+    // Hero image
+    var heroEl = document.getElementById('m-hero');
+    if (c.imageUrl) {
+      heroEl.innerHTML = '<img src="'+esc(c.imageUrl)+'" alt="'+esc(c.imgAlt)+'" loading="lazy"><div class="modal-hero-fade"></div>';
+    } else {
+      heroEl.innerHTML = '<div class="modal-hero-placeholder">'+esc(c.icon)+'</div><div class="modal-hero-fade"></div>';
+    }
+
+    document.getElementById('m-name').textContent    = c.name;
+    document.getElementById('m-sector').textContent  = c.sector;
+    document.getElementById('m-invest').textContent  = c.invest;
+    document.getElementById('m-stage').textContent   = c.stage;
+    document.getElementById('m-stag').textContent    = c.stag;
+    document.getElementById('m-desc').textContent    = c.desc;
+    document.getElementById('m-existing').innerHTML  = tagsHtml(c.existing, 'tag tag-existing');
+    document.getElementById('m-targets').innerHTML   = tagsHtml(c.targets,  'tag tag-target');
+    document.getElementById('m-dr-link').href        = c.dataroom;
+
+    // Reset form
+    ['f-name','f-co','f-email','f-phone'].forEach(function(fid){
+      document.getElementById(fid).value = '';
+    });
+    var sb = document.getElementById('f-submit');
+    sb.textContent = 'Submit Access Request →';
+    sb.disabled = false;
+    sb.removeAttribute('style');
+
+    document.getElementById('modal-overlay').classList.add('open');
+    document.body.style.overflow = 'hidden';
+  }
+
+  function closeModal() {
+    document.getElementById('modal-overlay').classList.remove('open');
+    document.body.style.overflow = '';
+  }
+
+  document.getElementById('m-close').addEventListener('click', closeModal);
+  document.getElementById('modal-overlay').addEventListener('click', function(e){
+    if (e.target === this) closeModal();
+  });
+  document.addEventListener('keydown', function(e){ if (e.key === 'Escape') closeModal(); });
+
+  document.getElementById('f-submit').addEventListener('click', function(){
+    this.textContent = '✓ Submitted — We\'ll be in touch shortly';
+    this.style.background = 'rgba(0,212,255,0.15)';
+    this.style.borderColor = 'var(--teal)';
+    this.style.color = 'var(--teal)';
+    this.disabled = true;
+  });
+
+  // ── INIT ──────────────────────────────────────────────────────────────────
+  render();
+}());
+</script>
+</body>
+</html>
